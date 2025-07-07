@@ -48,11 +48,6 @@ function loadInventarioData() {
             descripcion: row.querySelector('.product-name small')?.textContent?.trim() || '',
             bodega: row.querySelector('.bodega-name')?.textContent?.trim() || '',
             precio: row.querySelector('.price')?.textContent?.trim() || '',
-            entradas: row.querySelector('.entradas')?.textContent?.trim() || '0',
-            salidas: row.querySelector('.salidas')?.textContent?.trim() || '0',
-            devoluciones: row.querySelector('.devoluciones')?.textContent?.trim() || '0',
-            garantias: row.querySelector('.garantias')?.textContent?.trim() || '0',
-            traslados: row.querySelector('.traslados')?.textContent?.trim() || '0',
             stock: row.querySelector('.stock-actual .stock-number')?.textContent?.trim() || '0',
             estado: row.querySelector('.status-badge')?.textContent?.trim() || '',
             element: row
@@ -226,14 +221,10 @@ function exportToExcel() {
         const colWidths = [
             { wch: 8 },   // ID
             { wch: 30 },  // Producto
-            { wch: 20 },  // Bodega
+            { wch: 20 },  // Descripción
+            { wch: 15 },  // Bodega
             { wch: 12 },  // Precio
-            { wch: 10 },  // Entradas
-            { wch: 10 },  // Salidas
-            { wch: 12 },  // Devoluciones
-            { wch: 10 },  // Garantías
-            { wch: 10 },  // Traslados
-            { wch: 12 },  // Stock
+            { wch: 12 },  // Stock Actual
             { wch: 15 }   // Estado
         ];
         ws['!cols'] = colWidths;
@@ -338,15 +329,11 @@ function exportToPDF() {
                 columnStyles: {
                     0: { cellWidth: 15 }, // ID
                     1: { cellWidth: 40 }, // Producto
-                    2: { cellWidth: 25 }, // Bodega
-                    3: { cellWidth: 20 }, // Precio
-                    4: { cellWidth: 15 }, // Entradas
-                    5: { cellWidth: 15 }, // Salidas
-                    6: { cellWidth: 20 }, // Devoluciones
-                    7: { cellWidth: 15 }, // Garantías
-                    8: { cellWidth: 15 }, // Traslados
-                    9: { cellWidth: 15 }, // Stock
-                    10: { cellWidth: 20 } // Estado
+                    2: { cellWidth: 25 }, // Descripción
+                    3: { cellWidth: 20 }, // Bodega
+                    4: { cellWidth: 20 }, // Precio
+                    5: { cellWidth: 20 }, // Stock Actual
+                    6: { cellWidth: 20 }  // Estado
                 }
             });
         } else {
@@ -477,14 +464,10 @@ function getVisibleTableData() {
         const rowData = {
             'ID': row.querySelector('.product-id')?.textContent?.trim() || '',
             'Producto': row.querySelector('.product-name strong')?.textContent?.trim() || '',
+            'Descripción': row.querySelector('.product-name small')?.textContent?.trim() || '',
             'Bodega': row.querySelector('.bodega-name')?.textContent?.trim() || '',
             'Precio': row.querySelector('.price')?.textContent?.trim() || '',
-            'Entradas': row.querySelector('.entradas')?.textContent?.trim() || '0',
-            'Salidas': row.querySelector('.salidas')?.textContent?.trim() || '0',
-            'Devoluciones': row.querySelector('.devoluciones')?.textContent?.trim() || '0',
-            'Garantías': row.querySelector('.garantias')?.textContent?.trim() || '0',
-            'Traslados': row.querySelector('.traslados')?.textContent?.trim() || '0',
-            'Stock': row.querySelector('.stock-actual .stock-number')?.textContent?.trim() || '0',
+            'Stock Actual': row.querySelector('.stock-actual .stock-number')?.textContent?.trim() || '0',
             'Estado': row.querySelector('.status-badge')?.textContent?.trim() || ''
         };
         data.push(rowData);

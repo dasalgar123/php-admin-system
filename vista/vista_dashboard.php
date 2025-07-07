@@ -34,6 +34,19 @@
                         </a>
                     </li>
                     <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
+                    <li class="<?php echo $data['page'] === 'clientes' ? 'active' : ''; ?>">
+                        <a href="?page=clientes">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Clientes</span>
+                        </a>
+                    </li>
+                    <li class="<?php echo $data['page'] === 'proveedores' ? 'active' : ''; ?>">
+                        <a href="?page=proveedores">
+                            <i class="fas fa-truck"></i>
+                            <span>Proveedores</span>
+                        </a>
+                    </li>
+                    <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
                     <li class="<?php echo $data['page'] === 'products' ? 'active' : ''; ?>">
                         <a href="?page=products">
                             <i class="fas fa-box"></i>
@@ -132,6 +145,8 @@
                     switch($data['page']) {
                         case 'dashboard': echo 'Dashboard'; break;
                         case 'users': echo 'Gestión de Usuarios'; break;
+                        case 'clientes': echo 'Gestión de Clientes'; break;
+                        case 'proveedores': echo 'Gestión de Proveedores'; break;
                         case 'products': echo 'Gestión de Productos'; break;
                         case 'orders': echo 'Gestión de Pedidos'; break;
                         case 'analytics': echo 'Analíticas'; break;
@@ -163,6 +178,12 @@
                         break;
                     case 'users':
                         include '../vista/vista_users.php';
+                        break;
+                    case 'clientes':
+                        include '../vista/vista_clientes.php';
+                        break;
+                    case 'proveedores':
+                        include '../vista/vista_proveedores.php';
                         break;
                     case 'products':
                         include '../vista/vista_products.php';

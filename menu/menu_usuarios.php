@@ -111,6 +111,12 @@ $maskPassword = function($password) {
 };
 ?>
 
+<!-- Enlaces adicionales para el menú de usuarios -->
+<ul class="menu-usuarios">
+    <li><a href="?page=clientes"><i class="fas fa-user-friends"></i> Clientes</a></li>
+    <li><a href="?page=proveedores"><i class="fas fa-briefcase"></i> Proveedores</a></li>
+</ul>
+
 <?php if (isset($error)): ?>
     <div class="alert alert-danger">
         <i class="fas fa-exclamation-triangle"></i>

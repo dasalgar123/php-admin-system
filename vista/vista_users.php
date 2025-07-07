@@ -1,174 +1,165 @@
 <?php
-// Datos simulados de usuarios
-$users = [
-    [
-        'id' => 1,
-        'name' => 'Juan Pérez',
-        'email' => 'juan.perez@email.com',
-        'role' => 'Admin',
-        'status' => 'Activo',
-        'last_login' => '2024-01-15 10:30',
-        'avatar' => 'JP'
-    ],
-    [
-        'id' => 2,
-        'name' => 'María García',
-        'email' => 'maria.garcia@email.com',
-        'role' => 'Usuario',
-        'status' => 'Activo',
-        'last_login' => '2024-01-14 15:45',
-        'avatar' => 'MG'
-    ],
-    [
-        'id' => 3,
-        'name' => 'Carlos López',
-        'email' => 'carlos.lopez@email.com',
-        'role' => 'Editor',
-        'status' => 'Inactivo',
-        'last_login' => '2024-01-10 09:15',
-        'avatar' => 'CL'
-    ],
-    [
-        'id' => 4,
-        'name' => 'Ana Rodríguez',
-        'email' => 'ana.rodriguez@email.com',
-        'role' => 'Usuario',
-        'status' => 'Activo',
-        'last_login' => '2024-01-15 14:20',
-        'avatar' => 'AR'
-    ],
-    [
-        'id' => 5,
-        'name' => 'Luis Martínez',
-        'email' => 'luis.martinez@email.com',
-        'role' => 'Editor',
-        'status' => 'Activo',
-        'last_login' => '2024-01-13 11:30',
-        'avatar' => 'LM'
-    ]
-];
+require_once __DIR__ . '/../config/database.php';
 
-// Filtros
-$search = isset($_GET['search']) ? $_GET['search'] : '';
-$role_filter = isset($_GET['role']) ? $_GET['role'] : 'all';
-
-// Filtrar usuarios
-$filtered_users = array_filter($users, function($user) use ($search, $role_filter) {
-    $matches_search = empty($search) || 
-                     stripos($user['name'], $search) !== false || 
-                     stripos($user['email'], $search) !== false;
-    $matches_role = $role_filter === 'all' || $user['role'] === $role_filter;
-    return $matches_search && $matches_role;
-});
-
-$getStatusColor = function($status) {
-    return $status === 'Activo' ? 'success' : 'danger';
-};
-
-$getRoleColor = function($role) {
-    switch ($role) {
-        case 'Admin': return 'danger';
-        case 'Editor': return 'warning';
-        case 'Usuario': return 'primary';
-        default: return 'secondary';
+// Procesar acciones CRUD
+$mensaje = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Agregar o editar usuario
+    $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+    $nombre = trim($_POST['nombre'] ?? '');
+    $correo = trim($_POST['correo'] ?? '');
+    $rol = trim($_POST['rol'] ?? 'usuario');
+    $password = $_POST['password'] ?? '';
+    
+    if ($nombre && $correo && $rol) {
+        if ($id > 0) {
+            // Editar usuario
+            if ($password) {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $sql = "UPDATE usuario SET nombre=?, correo=?, contraseña=?, rol=? WHERE id=?";
+                $params = [$nombre, $correo, $hash, $rol, $id];
+            } else {
+                $sql = "UPDATE usuario SET nombre=?, correo=?, rol=? WHERE id=?";
+                $params = [$nombre, $correo, $rol, $id];
+            }
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $mensaje = 'Usuario actualizado correctamente.';
+        } else {
+            // Agregar usuario
+            if ($password) {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $sql = "INSERT INTO usuario (nombre, correo, contraseña, rol) VALUES (?, ?, ?, ?)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$nombre, $correo, $hash, $rol]);
+                $mensaje = 'Usuario agregado correctamente.';
+            } else {
+                $mensaje = 'La contraseña es obligatoria para nuevos usuarios.';
+            }
+        }
+    } else {
+        $mensaje = 'Todos los campos son obligatorios.';
     }
-};
+}
+
+// Eliminar usuario
+if (isset($_GET['eliminar'])) {
+    $id = intval($_GET['eliminar']);
+    if ($id > 0) {
+        $stmt = $pdo->prepare("DELETE FROM usuario WHERE id=?");
+        $stmt->execute([$id]);
+        $mensaje = 'Usuario eliminado correctamente.';
+    }
+}
+
+// Obtener usuarios
+$stmt = $pdo->query("SELECT id, nombre, correo, rol FROM usuario ORDER BY id ASC");
+$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Si se va a editar
+$usuario_editar = null;
+if (isset($_GET['editar'])) {
+    $id = intval($_GET['editar']);
+    $stmt = $pdo->prepare("SELECT id, nombre, correo, rol FROM usuario WHERE id=?");
+    $stmt->execute([$id]);
+    $usuario_editar = $stmt->fetch(PDO::FETCH_ASSOC);
+}
 ?>
-
-<link rel="stylesheet" href="css/users.css">
-
-<div class="card">
-    <div class="card-header">
-        <div class="filters">
-            <div class="search-box">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Buscar usuarios..." 
-                       value="<?php echo htmlspecialchars($search); ?>"
-                       onchange="window.location.href='?page=users&search=' + this.value + '&role=<?php echo $role_filter; ?>'">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dark-mode.css">
+    <link rel="stylesheet" href="../css/users.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-content">
+        <header class="content-header">
+            <h1><i class="fas fa-users"></i> Usuarios</h1>
+        </header>
+        <div class="content">
+            <?php if ($mensaje): ?>
+                <div class="alert alert-info" style="margin:20px;">
+                    <i class="fas fa-info-circle"></i> <?php echo htmlspecialchars($mensaje); ?>
+                </div>
+            <?php endif; ?>
+            <div class="card">
+                <h2><?php echo $usuario_editar ? 'Editar Usuario' : 'Agregar Usuario'; ?></h2>
+                <form method="POST" class="user-form">
+                    <?php if ($usuario_editar): ?>
+                        <input type="hidden" name="id" value="<?php echo $usuario_editar['id']; ?>">
+                    <?php endif; ?>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre" required value="<?php echo htmlspecialchars($usuario_editar['nombre'] ?? ''); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="correo">Correo:</label>
+                        <input type="email" name="correo" id="correo" required value="<?php echo htmlspecialchars($usuario_editar['correo'] ?? ''); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="rol">Rol:</label>
+                        <select name="rol" id="rol" required>
+                            <option value="administrador" <?php if (($usuario_editar['rol'] ?? '') === 'administrador') echo 'selected'; ?>>Administrador</option>
+                            <option value="usuario" <?php if (($usuario_editar['rol'] ?? '') === 'usuario') echo 'selected'; ?>>Usuario</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña<?php if ($usuario_editar): ?> (dejar en blanco para no cambiar)<?php endif; ?>:</label>
+                        <input type="password" name="password" id="password" <?php if (!$usuario_editar): ?>required<?php endif; ?> autocomplete="new-password">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> <?php echo $usuario_editar ? 'Actualizar' : 'Agregar'; ?>
+                        </button>
+                        <?php if ($usuario_editar): ?>
+                        <a href="?page=users" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+                        <?php endif; ?>
+                    </div>
+                </form>
             </div>
-            
-            <select class="filter-select" onchange="window.location.href='?page=users&search=<?php echo urlencode($search); ?>&role=' + this.value">
-                <option value="all" <?php echo $role_filter === 'all' ? 'selected' : ''; ?>>Todos los roles</option>
-                <option value="Admin" <?php echo $role_filter === 'Admin' ? 'selected' : ''; ?>>Admin</option>
-                <option value="Editor" <?php echo $role_filter === 'Editor' ? 'selected' : ''; ?>>Editor</option>
-                <option value="Usuario" <?php echo $role_filter === 'Usuario' ? 'selected' : ''; ?>>Usuario</option>
-            </select>
-        </div>
-        
-        <a href="?page=users&action=add" class="btn btn-primary">
-            <i class="fas fa-plus"></i>
-            Nuevo Usuario
-        </a>
-    </div>
-    
-    <div class="table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Email</th>
-                    <th>Rol</th>
-                    <th>Estado</th>
-                    <th>Último Acceso</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($filtered_users as $user): ?>
-                <tr>
-                    <td>
-                        <div class="user-info">
-                            <div class="user-avatar">
-                                <?php echo $user['avatar']; ?>
-                            </div>
-                            <div>
-                                <div class="user-name"><?php echo htmlspecialchars($user['name']); ?></div>
-                                <div class="user-id">ID: <?php echo $user['id']; ?></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td>
-                        <span class="status-badge <?php echo $getRoleColor($user['role']); ?>">
-                            <?php echo $user['role']; ?>
-                        </span>
-                    </td>
-                    <td>
-                        <span class="status-badge <?php echo $getStatusColor($user['status']); ?>">
-                            <?php echo $user['status']; ?>
-                        </span>
-                    </td>
-                    <td><?php echo $user['last_login']; ?></td>
-                    <td>
-                        <div class="action-buttons">
-                            <a href="?page=users&action=view&id=<?php echo $user['id']; ?>" 
-                               class="btn btn-secondary btn-sm" data-tooltip="Ver detalles">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="?page=users&action=edit&id=<?php echo $user['id']; ?>" 
-                               class="btn btn-primary btn-sm" data-tooltip="Editar">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="?page=users&action=delete&id=<?php echo $user['id']; ?>" 
-                               class="btn btn-danger btn-sm btn-delete" data-tooltip="Eliminar">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="table-footer">
-        <div class="table-info">
-            Mostrando <?php echo count($filtered_users); ?> de <?php echo count($users); ?> usuarios
-        </div>
-        <div class="pagination">
-            <button class="btn btn-secondary">Anterior</button>
-            <span class="page-info">Página 1 de 1</span>
-            <button class="btn btn-secondary">Siguiente</button>
+            <div class="card">
+                <h2>Lista de Usuarios</h2>
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($usuarios as $usuario): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($usuario['id']); ?></td>
+                            <td><?php echo htmlspecialchars($usuario['nombre']); ?></td>
+                            <td><?php echo htmlspecialchars($usuario['correo']); ?></td>
+                            <td><?php echo htmlspecialchars($usuario['rol']); ?></td>
+                            <td>
+                                <a href="?page=users&editar=<?php echo $usuario['id']; ?>" class="btn btn-sm btn-warning" title="Editar">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <a href="?page=users&eliminar=<?php echo $usuario['id']; ?>" class="btn btn-sm btn-danger" title="Eliminar" onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="?page=users&suspender=<?php echo $usuario['id']; ?>" class="btn btn-sm btn-secondary" title="Suspender" onclick="return confirm('¿Seguro que deseas suspender este usuario?');">
+                                    <i class="fas fa-user-slash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php if (empty($usuarios)): ?>
+                        <tr><td colspan="5" style="text-align:center;">No hay usuarios registrados.</td></tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div> 
+</body>
+</html> 
