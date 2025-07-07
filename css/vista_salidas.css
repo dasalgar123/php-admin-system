@@ -1,0 +1,164 @@
+/* Estilos específicos para la vista de salidas */
+
+/* Contenedor principal de la tabla */
+.salidas-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Tabla de salidas */
+.salidas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Encabezados de la tabla */
+.salidas-table th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 14px;
+}
+
+/* Celdas de datos */
+.salidas-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Efecto hover en las filas */
+.salidas-table tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: background-color 0.2s ease;
+}
+
+/* Primera columna (ID) */
+.salidas-table th:first-child,
+.salidas-table td:first-child {
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Columna de cantidad */
+.salidas-table th:nth-child(3),
+.salidas-table td:nth-child(3) {
+    text-align: center;
+    font-weight: bold;
+    color: #dc3545; /* Rojo para salidas */
+}
+
+/* Columna de fecha */
+.salidas-table th:nth-child(4),
+.salidas-table td:nth-child(4) {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* Columna de motivo */
+.salidas-table th:nth-child(5),
+.salidas-table td:nth-child(5) {
+    text-transform: capitalize;
+}
+
+/* Columna de beneficiario */
+.salidas-table th:nth-child(6),
+.salidas-table td:nth-child(6) {
+    font-weight: 500;
+    color: #fd7e14; /* Naranja para diferenciar de entradas */
+}
+
+/* Columna de tipo */
+.salidas-table th:nth-child(7),
+.salidas-table td:nth-child(7) {
+    text-transform: capitalize;
+    color: #6c757d;
+}
+
+/* Columna de ID beneficiario */
+.salidas-table th:nth-child(8),
+.salidas-table td:nth-child(8) {
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    color: #6c757d;
+}
+
+/* Columna de factura */
+.salidas-table th:nth-child(9),
+.salidas-table td:nth-child(9) {
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+    color: #6f42c1; /* Púrpura para diferenciar de entradas */
+}
+
+/* Mensaje cuando no hay datos */
+.salidas-table tbody tr td[colspan] {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .salidas-container {
+        padding: 10px;
+    }
+    
+    .salidas-table {
+        font-size: 12px;
+    }
+    
+    .salidas-table th,
+    .salidas-table td {
+        padding: 8px 4px;
+    }
+    
+    /* Ocultar columnas menos importantes en móvil */
+    .salidas-table th:nth-child(8),
+    .salidas-table td:nth-child(8) {
+        display: none;
+    }
+}
+
+/* Estilos para modo oscuro */
+.dark-mode .salidas-container {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-mode .salidas-table {
+    background: #2d3748;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.dark-mode .salidas-table th {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-bottom-color: #718096;
+}
+
+.dark-mode .salidas-table td {
+    color: #cbd5e0;
+    border-bottom-color: #4a5568;
+}
+
+.dark-mode .salidas-table tbody tr:hover {
+    background-color: #4a5568;
+}
+
+.dark-mode .salidas-table tbody tr td[colspan] {
+    color: #a0aec0;
+} 

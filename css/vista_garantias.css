@@ -1,0 +1,237 @@
+/* Estilos específicos para la vista de garantías */
+
+/* Contenedor principal de la tabla */
+.garantias-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Tabla de garantías */
+.garantias-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Encabezados de la tabla */
+.garantias-table th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 14px;
+}
+
+/* Celdas de datos */
+.garantias-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Efecto hover en las filas */
+.garantias-table tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: background-color 0.2s ease;
+}
+
+/* Primera columna (ID) */
+.garantias-table th:first-child,
+.garantias-table td:first-child {
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Columna de producto */
+.garantias-table th:nth-child(2),
+.garantias-table td:nth-child(2) {
+    font-weight: 500;
+    color: #007bff; /* Azul para productos */
+}
+
+/* Columna de cliente */
+.garantias-table th:nth-child(3),
+.garantias-table td:nth-child(3) {
+    font-weight: 500;
+    color: #28a745; /* Verde para clientes */
+}
+
+/* Columnas de fecha */
+.garantias-table th:nth-child(4),
+.garantias-table td:nth-child(4),
+.garantias-table th:nth-child(5),
+.garantias-table td:nth-child(5) {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #6c757d;
+}
+
+/* Columna de problema */
+.garantias-table th:nth-child(6),
+.garantias-table td:nth-child(6) {
+    color: #dc3545; /* Rojo para problemas */
+    font-style: italic;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Columna de estado */
+.garantias-table th:nth-child(7),
+.garantias-table td:nth-child(7) {
+    text-align: center;
+}
+
+/* Columna de solución */
+.garantias-table th:nth-child(8),
+.garantias-table td:nth-child(8) {
+    color: #17a2b8; /* Cyan para soluciones */
+    font-style: italic;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Badges de estado */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.status-badge.activa {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge.vencida {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-badge.en_proceso {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.resuelta {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-badge.rechazada {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.status-badge.pendiente {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Mensaje cuando no hay datos */
+.garantias-table tbody tr td[colspan] {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .garantias-container {
+        padding: 10px;
+    }
+    
+    .garantias-table {
+        font-size: 12px;
+    }
+    
+    .garantias-table th,
+    .garantias-table td {
+        padding: 8px 4px;
+    }
+    
+    /* Ocultar columnas menos importantes en móvil */
+    .garantias-table th:nth-child(4),
+    .garantias-table td:nth-child(4),
+    .garantias-table th:nth-child(8),
+    .garantias-table td:nth-child(8) {
+        display: none;
+    }
+}
+
+/* Estilos para modo oscuro */
+.dark-mode .garantias-container {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-mode .garantias-table {
+    background: #2d3748;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.dark-mode .garantias-table th {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-bottom-color: #718096;
+}
+
+.dark-mode .garantias-table td {
+    color: #cbd5e0;
+    border-bottom-color: #4a5568;
+}
+
+.dark-mode .garantias-table tbody tr:hover {
+    background-color: #4a5568;
+}
+
+.dark-mode .garantias-table tbody tr td[colspan] {
+    color: #a0aec0;
+}
+
+/* Badges de estado en modo oscuro */
+.dark-mode .status-badge.activa {
+    background-color: #22543d;
+    color: #9ae6b4;
+}
+
+.dark-mode .status-badge.vencida {
+    background-color: #742a2a;
+    color: #feb2b2;
+}
+
+.dark-mode .status-badge.en_proceso {
+    background-color: #744210;
+    color: #faf089;
+}
+
+.dark-mode .status-badge.resuelta {
+    background-color: #2a4365;
+    color: #90cdf4;
+}
+
+.dark-mode .status-badge.rechazada {
+    background-color: #4a5568;
+    color: #e2e8f0;
+}
+
+.dark-mode .status-badge.pendiente {
+    background-color: #742a2a;
+    color: #feb2b2;
+} 

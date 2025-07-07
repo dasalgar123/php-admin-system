@@ -1,0 +1,208 @@
+/* Estilos específicos para la vista de ventas */
+
+/* Contenedor principal de la tabla */
+.ventas-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Tabla de ventas */
+.ventas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Encabezados de la tabla */
+.ventas-table th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 14px;
+}
+
+/* Celdas de datos */
+.ventas-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Efecto hover en las filas */
+.ventas-table tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: background-color 0.2s ease;
+}
+
+/* Primera columna (ID) */
+.ventas-table th:first-child,
+.ventas-table td:first-child {
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Columna de cantidad */
+.ventas-table th:nth-child(3),
+.ventas-table td:nth-child(3) {
+    text-align: center;
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Columna de precio unitario */
+.ventas-table th:nth-child(4),
+.ventas-table td:nth-child(4) {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    color: #6c757d;
+}
+
+/* Columna de total */
+.ventas-table th:nth-child(5),
+.ventas-table td:nth-child(5) {
+    text-align: right;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    color: #28a745;
+}
+
+/* Columna de fecha */
+.ventas-table th:nth-child(6),
+.ventas-table td:nth-child(6) {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* Columna de cliente */
+.ventas-table th:nth-child(7),
+.ventas-table td:nth-child(7) {
+    font-weight: 500;
+    color: #007bff;
+}
+
+/* Columna de estado */
+.ventas-table th:nth-child(8),
+.ventas-table td:nth-child(8) {
+    text-align: center;
+}
+
+/* Badges de estado */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.status-badge.completado {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge.pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.cancelado {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-badge.procesando {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+/* Mensaje cuando no hay datos */
+.ventas-table tbody tr td[colspan] {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .ventas-container {
+        padding: 10px;
+    }
+    
+    .ventas-table {
+        font-size: 12px;
+    }
+    
+    .ventas-table th,
+    .ventas-table td {
+        padding: 8px 4px;
+    }
+    
+    /* Ocultar columnas menos importantes en móvil */
+    .ventas-table th:nth-child(4),
+    .ventas-table td:nth-child(4) {
+        display: none;
+    }
+}
+
+/* Estilos para modo oscuro */
+.dark-mode .ventas-container {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-mode .ventas-table {
+    background: #2d3748;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.dark-mode .ventas-table th {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-bottom-color: #718096;
+}
+
+.dark-mode .ventas-table td {
+    color: #cbd5e0;
+    border-bottom-color: #4a5568;
+}
+
+.dark-mode .ventas-table tbody tr:hover {
+    background-color: #4a5568;
+}
+
+.dark-mode .ventas-table tbody tr td[colspan] {
+    color: #a0aec0;
+}
+
+/* Badges de estado en modo oscuro */
+.dark-mode .status-badge.completado {
+    background-color: #22543d;
+    color: #9ae6b4;
+}
+
+.dark-mode .status-badge.pendiente {
+    background-color: #744210;
+    color: #faf089;
+}
+
+.dark-mode .status-badge.cancelado {
+    background-color: #742a2a;
+    color: #feb2b2;
+}
+
+.dark-mode .status-badge.procesando {
+    background-color: #2a4365;
+    color: #90cdf4;
+} 
