@@ -1,253 +1,204 @@
-# PHP Admin Interface
+# Sistema de Administración PHP
 
-Una interfaz de administración moderna y funcional construida con PHP puro siguiendo el patrón MVC para la gestión de sistemas empresariales.
+Sistema de administración web desarrollado en PHP con arquitectura MVC, completamente traducido al español.
 
-## Características
+## 🚀 Características
 
-- 🔐 **Sistema de Autenticación**: Login seguro con sesiones PHP
-- 🎨 **Diseño Moderno**: Interfaz limpia y profesional con CSS3
-- 📱 **Responsive**: Optimizado para dispositivos móviles y tablets
-- 🧭 **Navegación Intuitiva**: Sidebar con navegación por páginas
-- 📊 **Dashboard Interactivo**: Estadísticas y métricas en tiempo real
-- 👥 **Gestión de Usuarios**: CRUD completo con búsqueda y filtros
-- 📦 **Gestión de Productos**: Catálogo con control de stock
-- 🛒 **Gestión de Pedidos**: Seguimiento de pedidos y estados
-- 📈 **Analíticas**: Métricas de rendimiento y estadísticas
-- ⚙️ **Configuración**: Panel de configuración personalizable
-- 🔍 **Búsqueda Avanzada**: Filtros en todas las secciones
-- 🏗️ **Arquitectura MVC**: Separación clara de responsabilidades
+- **Arquitectura MVC** completa
+- **Interfaz en español** completamente localizada
+- **Sistema de autenticación** seguro
+- **Gestión de usuarios, clientes, productos y pedidos**
+- **Inventario y control de stock**
+- **Entradas, salidas, devoluciones y garantías**
+- **Diseño responsive** para todos los dispositivos
+- **Modo oscuro** integrado
 
-## Tecnologías Utilizadas
-
-- **PHP 7.4+**: Backend y lógica de negocio
-- **HTML5**: Estructura semántica
-- **CSS3**: Estilos modernos con variables CSS
-- **JavaScript**: Interactividad y validaciones
-- **Font Awesome**: Iconografía moderna
-- **Sesiones PHP**: Autenticación y seguridad
-- **Patrón MVC**: Arquitectura de software
-
-## Instalación
-
-1. **Requisitos del Servidor:**
-   - PHP 7.4 o superior
-   - Servidor web (Apache, Nginx, o servidor integrado de PHP)
-   - Soporte para sesiones PHP
-
-2. **Configuración:**
-   ```bash
-   # Copiar archivos al directorio web
-   cp -r php-admin/ /var/www/html/
-   
-   # O usar servidor integrado de PHP
-   cd php-admin
-   php -S localhost:8000
-   ```
-
-3. **Acceso:**
-   - Abrir navegador en: `http://localhost:8000`
-   - Credenciales: `admin` / `admin123`
-
-> **Nota importante:**
-> Para evitar errores de rutas en los `require_once` y `include` de PHP, este proyecto utiliza rutas absolutas con `__DIR__`. Ejemplo:
-> ```php
-> require_once __DIR__ . '/../config/database.php';
-> ```
-> Así te aseguras de que los archivos siempre se incluyan correctamente, sin importar desde dónde se ejecute el script.
-
-## Estructura del Proyecto (Arquitectura MVC)
+## 📁 Estructura del Proyecto
 
 ```
 php-admin/
-├── index.php                          # Punto de entrada principal
-├── config/
-│   └── database.php                   # Configuración de base de datos
-├── controlador/                       # 🎯 Controladores (Lógica de negocio)
-│   ├── LoginController.php            # Controlador de autenticación
-│   ├── DashboardController.php        # Controlador del dashboard
-│   ├── LogoutController.php           # Controlador de cierre de sesión
-│   ├── UsersController.php            # Controlador de usuarios
-│   ├── ProductsController.php         # Controlador de productos
-│   ├── OrdersController.php           # Controlador de pedidos
-│   ├── AnalyticsController.php        # Controlador de analíticas
-│   ├── SettingsController.php         # Controlador de configuración
-│   ├── ClienteController.php          # Controlador de clientes
-│   └── WhatsappOrdersController.php   # Controlador de pedidos WhatsApp
-├── modelo/                           # 🗃️ Modelos (Acceso a datos)
-│   ├── modelo_Autenticacion.php      # Modelo de autenticación
-│   ├── modelo_User.php               # Modelo de usuarios
-│   ├── modelo_Product.php            # Modelo de productos
-│   ├── modelo_Order.php              # Modelo de pedidos
-│   ├── modelo_Analytics.php          # Modelo de analíticas
-│   ├── modelo_Settings.php           # Modelo de configuración
-│   ├── modelo_Cliente.php            # Modelo de clientes
-│   └── modelo_WhatsappOrder.php      # Modelo de pedidos WhatsApp
-├── vista/                            # 📱 Vistas (Presentación)
-│   ├── vista_login.php               # Vista de login
-│   ├── vista_dashboard.php           # Vista del dashboard
-│   ├── vista_usuarios.php            # Vista de usuarios
-│   ├── vista_products.php            # Vista de productos
-│   ├── vista_orders.php              # Vista de pedidos
-│   ├── vista_analytics.php           # Vista de analíticas
-│   ├── vista_settings.php            # Vista de configuración
-│   ├── vista_whatsapp-orders.php     # Vista de pedidos WhatsApp
-│   └── vista_main-dashboard.php      # Vista del dashboard principal
-├── menu/                             # 🧭 Componentes de menú
-│   ├── menu_dashboard-content.php    # Contenido del dashboard
-│   ├── menu_usuarios.php             # Menú de usuarios
-│   ├── menu_productos.php            # Menú de productos
-│   ├── menu_ordenes.php              # Menú de pedidos
-│   ├── menu_analytics.php            # Menú de analíticas
-│   ├── menu_settings.php             # Menú de configuración
-│   ├── menu_clientes.php             # Menú de clientes
-│   ├── menu_entradas.php             # Menú de entradas
-│   ├── menu_salidas.php              # Menú de salidas
-│   └── menu_inventario.php           # Menú de inventario
-├── css/                              # 🎨 Estilos CSS
-│   ├── style.css                     # Estilos principales
-│   ├── dark-mode.css                 # Variables CSS para modo oscuro
-│   ├── dashboard.css                 # Estilos del dashboard
-│   ├── users.css                     # Estilos de usuarios
-│   ├── products.css                  # Estilos de productos
-│   ├── analytics.css                 # Estilos de analíticas
-│   ├── clientes.css                  # Estilos de clientes
-│   └── main-dashboard.css            # Estilos del dashboard principal
-├── js/                               # ⚡ JavaScript
-│   ├── script.js                     # Script principal
-│   ├── dark-mode.js                  # Sistema de modo oscuro
-│   ├── clientes.js                   # Script de clientes
-│   └── usuarios.js                   # Script de usuarios
-├── diagrama_actividad_login_dashboard.md      # Diagrama de actividades (Markdown)
-├── diagrama_actividad_login_dashboard.html    # Diagrama de actividades (HTML)
-├── diagrama_actividades_uml.html              # Diagrama UML profesional
-├── diagrama_actividad_login_dashboard_bmp.html # Generador de diagrama BMP
-├── demo-dark-mode.html               # Demostración del modo oscuro
-└── README.md                         # Documentación
+├── config/                          # Configuración
+│   └── database.php                 # Conexión a base de datos
+├── controlador/                     # Controladores MVC
+│   ├── ControladorMenuPrincipalPrincipal.php
+│   ├── ControladorUsuarios.php
+│   ├── ControladorClientes.php
+│   ├── ControladorProductos.php
+│   ├── ControladorPedidos.php
+│   ├── ControladorInventario.php
+│   ├── ControladorEntradas.php
+│   ├── ControladorSalidas.php
+│   ├── ControladorDevoluciones.php
+│   ├── ControladorGarantias.php
+│   ├── ControladorTraslados.php
+│   ├── ControladorProveedores.php
+│   ├── ControladorVentas.php
+│   ├── LoginController.php
+│   └── LogoutController.php
+├── modelo/                          # Modelos de datos
+│   ├── modelo_Autenticacion.php
+│   ├── modelo_Usuario.php
+│   ├── modelo_Cliente.php
+│   ├── modelo_Producto.php
+│   └── modelo_Pedido.php
+├── vista/                           # Vistas
+│   ├── vista_menu_principal.php
+│   ├── vista_usuarios.php
+│   ├── vista_clientes.php
+│   ├── vista_products.php
+│   ├── vista_orders.php
+│   ├── vista_inventario.php
+│   ├── vista_entradas.php
+│   ├── vista_salidas.php
+│   ├── vista_devoluciones.php
+│   ├── vista_garantias.php
+│   ├── vista_traslados.php
+│   ├── vista_proveedores.php
+│   ├── vista_ventas.php
+│   └── vista_login.php
+├── css/                             # Estilos CSS
+│   ├── style.css
+│   ├── barra-lateral.css
+│   ├── menu_principal.css
+│   ├── usuarios.css
+│   ├── clientes.css
+│   ├── products.css
+│   ├── inventario.css
+│   ├── entradas.css
+│   ├── salidas.css
+│   ├── devoluciones.css
+│   ├── garantias.css
+│   ├── traslados.css
+│   ├── proveedores.css
+│   └── ventas.css
+├── js/                              # JavaScript
+│   ├── script.js
+│   ├── usuarios.js
+│   ├── clientes.js
+│   ├── inventario.js
+│   └── proveedores.js
+├── menu/                            # Contenido de menús
+│   ├── menu_menu_principal.php
+│   ├── menu_usuarios.php
+│   ├── menu_clientes.php
+│   ├── menu_productos.php
+│   ├── menu_ordenes.php
+│   ├── menu_inventario.php
+│   ├── menu_entradas.php
+│   ├── menu_salidas.php
+│   ├── menu_devoluciones.php
+│   ├── menu_garantias.php
+│   ├── menu_traslados.php
+│   ├── menu_proveedores.php
+│   └── menu_ventas.php
+└── index.php                        # Punto de entrada
 ```
 
-## Arquitectura MVC
+## 🎯 Módulos Disponibles
 
-### 🎯 **Controladores** (`controlador/`)
-- Manejan la lógica de negocio
-- Procesan las solicitudes HTTP
-- Coordinan entre modelos y vistas
-- Gestionan la autenticación y autorización
+### 🔐 Autenticación
+- Login seguro con validación
+- Control de sesiones
+- Logout automático
 
-### 🗃️ **Modelos** (`modelo/`)
-- Acceden y manipulan los datos
-- Contienen la lógica de negocio específica
-- Manejan las consultas a la base de datos
-- Validan los datos
+### 👥 Gestión de Usuarios
+- Lista de usuarios
+- Crear, editar, eliminar usuarios
+- Control de roles y permisos
 
-### 📱 **Vistas** (`vista/`)
-- Presentan la información al usuario
-- Contienen solo HTML y lógica de presentación
-- Reciben datos de los controladores
-- No contienen lógica de negocio
-
-## Páginas Disponibles
-
-### 🔐 Login (`controlador/LoginController.php`)
-- Formulario de autenticación seguro
-- Validación de credenciales
-- Manejo de errores
-- Recordar sesión
-
-### 🏠 Dashboard (`controlador/DashboardController.php`)
-- Estadísticas generales del sistema
-- Métricas de usuarios, productos y ventas
-- Pedidos recientes
-- Acciones rápidas
-
-### 👥 Usuarios (`controlador/UsersController.php`)
-- Lista de usuarios con búsqueda
-- Filtros por rol (Admin, Editor, Usuario)
-- Gestión de estados (Activo/Inactivo)
-- Acciones: Ver, Editar, Eliminar
-
-### 📦 Productos (`controlador/ProductsController.php`)
-- Catálogo de productos
-- Control de stock con alertas
-- Filtros por categoría
-- Gestión de precios y disponibilidad
-
-### 🛒 Pedidos (`controlador/OrdersController.php`)
-- Seguimiento de pedidos
-- Estados: Completado, Pendiente, En proceso
-- Información de clientes y pagos
-- Historial de transacciones
-
-### 📈 Analíticas (`controlador/AnalyticsController.php`)
-- Métricas de rendimiento
-- Gráficos de ventas (preparado para Chart.js)
-- Estadísticas de usuarios
-- Tendencias del negocio
-
-### ⚙️ Configuración (`controlador/SettingsController.php`)
-- Notificaciones del sistema
-- Configuración regional (idioma, zona horaria)
-- Apariencia (modo oscuro)
-- Configuración de seguridad
-
-### 👥 Clientes (`controlador/ClienteController.php`)
-- Gestión de clientes
+### 👥 Gestión de Clientes
+- Registro de clientes
 - Información de contacto
 - Historial de compras
-- Segmentación de clientes
 
-## Flujo de Navegación
+### 📦 Gestión de Productos
+- Catálogo de productos
+- Control de stock
+- Gestión de precios
 
-```
-1. Usuario accede a index.php
-2. index.php verifica autenticación
-3. Si no autenticado → LoginController.php
-4. Si autenticado → DashboardController.php
-5. DashboardController.php incluye vista_dashboard.php
-6. Usuario navega entre secciones
-7. Logout → LogoutController.php
-```
+### 🛒 Gestión de Pedidos
+- Crear y gestionar pedidos
+- Seguimiento de estados
+- Información de clientes
 
-## Personalización
+### 📊 Inventario
+- Control de stock en tiempo real
+- Alertas de stock bajo
+- Reportes de inventario
 
-### Colores
-Los colores se pueden personalizar editando las variables CSS en `assets/css/style.css`:
+### 📥 Entradas
+- Registro de entradas de productos
+- Control de proveedores
+- Documentación de entradas
 
-```css
-:root {
-  --primary-color: #2563eb;
-  --secondary-color: #64748b;
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --danger-color: #ef4444;
-  --dark-color: #1e293b;
-  --light-color: #f8fafc;
-  --border-color: #e2e8f0;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-```
+### 📤 Salidas
+- Registro de salidas de productos
+- Control de ventas
+- Documentación de salidas
 
-### Agregar Nuevas Páginas
-1. Crear controlador en `controlador/`
-2. Crear modelo en `modelo/`
-3. Crear vista en `vista/`
-4. Agregar enlace en `vista_dashboard.php` (sidebar)
-5. Agregar case en el switch de páginas del controlador
+### 🔄 Devoluciones
+- Gestión de devoluciones
+- Control de calidad
+- Procesos de reembolso
 
-### Integración con Base de Datos
-El proyecto está preparado para integrarse con MySQL/PostgreSQL:
+### 🛡️ Garantías
+- Gestión de garantías
+- Control de fechas
+- Seguimiento de reparaciones
 
+### 🔄 Traslados
+- Movimientos entre bodegas
+- Control de ubicaciones
+- Documentación de traslados
+
+### 🚚 Proveedores
+- Gestión de proveedores
+- Información de contacto
+- Historial de compras
+
+### 💰 Ventas
+- Registro de ventas
+- Control de ingresos
+- Reportes de ventas
+
+## 🚀 Instalación
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/dasalgar123/php-admin-system.git
+   ```
+
+2. **Configurar servidor web**
+   - Copiar archivos a `htdocs/` (XAMPP) o directorio web
+   - Configurar base de datos en `config/database.php`
+
+3. **Configurar base de datos**
+   - Crear base de datos MySQL
+   - Importar estructura de tablas
+   - Configurar credenciales en `config/database.php`
+
+4. **Acceder al sistema**
+   - Abrir navegador en `http://localhost/php-admin`
+   - Usar credenciales de administrador
+
+## 🔧 Configuración
+
+### Base de Datos
+Editar `config/database.php`:
 ```php
-// Ejemplo de conexión a base de datos
-$pdo = new PDO("mysql:host=localhost;dbname=admin_db", "user", "password");
-
-// Obtener usuarios
-$stmt = $pdo->query("SELECT * FROM users");
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$host = 'localhost';
+$dbname = 'php_admin';
+$username = 'tu_usuario';
+$password = 'tu_password';
 ```
 
-## Seguridad
+### Personalización
+- Colores: Editar variables CSS en `css/style.css`
+- Idiomas: Modificar textos en archivos de vista
+- Módulos: Agregar nuevos controladores y vistas
 
-### Implementado
+## 🛡️ Seguridad
+
 - ✅ Autenticación con sesiones PHP
 - ✅ Validación de formularios
 - ✅ Escape de datos HTML
@@ -255,104 +206,61 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ### Recomendaciones para Producción
 - 🔒 Usar HTTPS
-- 🔒 Implementar hash de contraseñas (password_hash)
+- 🔒 Implementar hash de contraseñas
 - 🔒 Configurar base de datos segura
 - 🔒 Implementar CSRF tokens
 - 🔒 Validación del lado servidor
 - 🔒 Logs de auditoría
 
-## Características Responsive
+## 📱 Responsive Design
 
 - **Desktop**: Sidebar fijo con navegación completa
 - **Tablet**: Sidebar colapsible
-- **Mobile**: Sidebar oculto, navegación optimizada
+- **Mobile**: Navegación optimizada
 
 ## 🌙 Modo Oscuro
 
-El sistema incluye un modo oscuro completamente funcional con las siguientes características:
+El sistema incluye modo oscuro con:
+- Cambio instantáneo entre temas
+- Persistencia automática
+- Detección de preferencia del sistema
+- Atajos de teclado
 
-### ✨ Características
-- **Cambio instantáneo** entre tema claro y oscuro
-- **Persistencia automática** del tema elegido
-- **Detección de preferencia** del sistema operativo
-- **Atajos de teclado** (Ctrl/Cmd + Shift + T)
-- **Transiciones suaves** entre temas
-- **Notificaciones visuales** al cambiar tema
+## 🔄 Actualizaciones Recientes
 
-### 🎛️ Cómo usar
-1. **Botón de tema**: Haz clic en el botón de luna/sol en el header
-2. **Atajo de teclado**: Usa `Ctrl + Shift + T` (Windows/Linux) o `Cmd + Shift + T` (Mac)
-3. **Detección automática**: El tema se ajusta según tu configuración del sistema
+- ✅ Traducción completa al español
+- ✅ Renombrado de archivos y clases
+- ✅ Eliminación de archivos no utilizados
+- ✅ Mejoras en la estructura MVC
+- ✅ Optimización de código
+- ✅ Limpieza de CSS duplicado
 
-### 🎨 Personalización
-El modo oscuro usa variables CSS que se pueden personalizar en `css/dark-mode.css`:
+## 📊 Estadísticas del Proyecto
 
-```css
-[data-theme="dark"] {
-  --bg-primary: #0f172a;      /* Fondo principal */
-  --text-primary: #f1f5f9;    /* Texto principal */
-  --border-color: #334155;    /* Bordes */
-  /* ... más variables */
-}
-```
+- **PHP**: 61.4%
+- **CSS**: 19.1%
+- **JavaScript**: 11.1%
+- **HTML**: 8.4%
 
-### 📱 Demo
-Abre `demo-dark-mode.html` para ver una demostración completa del modo oscuro.
-
-## Scripts Disponibles
-
-```bash
-# Servidor de desarrollo
-php -S localhost:8000
-
-# Verificar sintaxis PHP
-php -l index.php
-
-# Verificar errores
-php -d display_errors=1 index.php
-```
-
-## Diagramas del Sistema
-
-El proyecto incluye varios diagramas para documentar el flujo:
-
-- **`diagrama_actividad_login_dashboard.md`**: Diagrama básico en Markdown
-- **`diagrama_actividad_login_dashboard.html`**: Diagrama interactivo con Mermaid
-- **`diagrama_actividades_uml.html`**: Diagrama UML profesional
-- **`diagrama_actividad_login_dashboard_bmp.html`**: Generador de diagrama en formato BMP
-
-## Próximas Mejoras
-
-- [ ] Integración con base de datos MySQL
-- [ ] Sistema de roles y permisos avanzado
-- [ ] API REST para integración
-- [ ] Gráficos con Chart.js
-- [ ] Exportación de datos (PDF, Excel)
-- [ ] Notificaciones en tiempo real
-- [x] Modo oscuro funcional
-- [ ] Internacionalización (i18n)
-- [ ] Tests unitarios
-- [ ] Optimización de rendimiento
-
-## Contribución
+## 🤝 Contribución
 
 1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+2. Crear rama para feature (`git checkout -b feature/NuevaFuncionalidad`)
+3. Commit cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/NuevaFuncionalidad`)
+5. Abrir Pull Request
 
-## Licencia
+## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT.
 
-## Soporte
+## 📞 Soporte
 
-Para soporte técnico o preguntas:
-- Revisar la documentación
+Para soporte técnico:
+- Revisar documentación
 - Verificar logs de errores
 - Contactar al equipo de desarrollo
 
 ---
 
-**Nota**: Esta es una versión de demostración con arquitectura MVC implementada. Para uso en producción, implementar todas las medidas de seguridad recomendadas. 
+**Nota**: Sistema de administración PHP con arquitectura MVC implementada. Para uso en producción, implementar todas las medidas de seguridad recomendadas. 
