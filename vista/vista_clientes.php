@@ -1,62 +1,12 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorClientes.php';
 
-// Procesar acciones CRUD
-$mensaje = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
-    $nombre = trim($_POST['nombre'] ?? '');
-    $correo = trim($_POST['correo'] ?? '');
-    $contraseña = trim($_POST['contraseña'] ?? '');
-    $rol = trim($_POST['rol'] ?? 'cliente');
-    
-    if ($nombre && $correo) {
-        if ($id > 0) {
-            // Actualizar cliente existente
-            if ($contraseña) {
-                $sql = "UPDATE cliente SET nombre=?, correo=?, contraseña=?, rol=? WHERE id=?";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$nombre, $correo, $contraseña, $rol, $id]);
-            } else {
-                $sql = "UPDATE cliente SET nombre=?, correo=?, rol=? WHERE id=?";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$nombre, $correo, $rol, $id]);
-            }
-            $mensaje = 'Cliente actualizado correctamente.';
-        } else {
-            // Insertar nuevo cliente
-            if (!$contraseña) {
-                $contraseña = 'cliente123'; // Contraseña por defecto
-            }
-            $sql = "INSERT INTO cliente (nombre, correo, contraseña, rol) VALUES (?, ?, ?, ?)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$nombre, $correo, $contraseña, $rol]);
-            $mensaje = 'Cliente agregado correctamente.';
-        }
-    } else {
-        $mensaje = 'Nombre y correo son obligatorios.';
-    }
-}
-
-if (isset($_GET['eliminar'])) {
-    $id = intval($_GET['eliminar']);
-    if ($id > 0) {
-        $stmt = $pdo->prepare("DELETE FROM cliente WHERE id=?");
-        $stmt->execute([$id]);
-        $mensaje = 'Cliente eliminado correctamente.';
-    }
-}
-
-$stmt = $pdo->query("SELECT id, nombre, correo, rol FROM cliente ORDER BY id ASC");
-$clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$cliente_editar = null;
-if (isset($_GET['editar'])) {
-    $id = intval($_GET['editar']);
-    $stmt = $pdo->prepare("SELECT id, nombre, correo, rol FROM cliente WHERE id=?");
-    $stmt->execute([$id]);
-    $cliente_editar = $stmt->fetch(PDO::FETCH_ASSOC);
-}
+// Obtener datos usando el controlador
+$controladorClientes = new ControladorClientes($pdo);
+$mensaje = $controladorClientes->procesarAcciones();
+$clientes = $controladorClientes->obtenerClientes();
+$cliente_editar = $controladorClientes->obtenerClienteParaEditar();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,15 +14,12 @@ if (isset($_GET['editar'])) {
     <meta charset="UTF-8">
     <title>Clientes</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/clientes.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="main-content">
-        <header class="content-header">
-            <h1><i class="fas fa-user-friends"></i> Clientes</h1>
-        </header>
+        
         <div class="content">
             <?php if ($mensaje): ?>
                 <div class="alerta alerta-exito">

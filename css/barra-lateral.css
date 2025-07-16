@@ -1,0 +1,136 @@
+/* ========================================
+   BARRA LATERAL - SIMPLIFICADO
+   ======================================== */
+
+/* Fondo de la barra lateral */
+.barra-lateral {
+    width: 200px;
+    background: darkblue;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+/* Header */
+.barra-lateral-header {
+    padding: 20px;
+    text-align: center;
+    background: blue;
+}
+
+.barra-lateral-header h2 {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+}
+
+.barra-lateral-header i {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Navegación */
+.barra-lateral-nav {
+    padding: 20px 0;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    background: darkblue;
+}
+
+/* Forzar que se vean todos los elementos del menú */
+.barra-lateral-nav ul {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.barra-lateral-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.barra-lateral-nav li {
+    margin: 1px 15px;
+}
+
+.barra-lateral-nav a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: yellow !important;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.barra-lateral-nav a span {
+    color: yellow !important;
+}
+
+.barra-lateral-nav a i {
+    color: yellow !important;
+}
+
+.barra-lateral-nav a:hover {
+    background: blue;
+    color: white;
+}
+
+.barra-lateral-nav .active a {
+    background: lightblue;
+    color: black;
+}
+
+.barra-lateral-nav i {
+    margin-right: 12px;
+    width: 20px;
+    font-size: 16px;
+}
+
+.barra-lateral-nav span {
+    font-size: 14px;
+}
+
+/* Footer */
+.barra-lateral-footer {
+    padding: 20px;
+    border-top: 1px solid white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: blue;
+    height: 120px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: white;
+    font-size: 13px;
+}
+
+.user-info i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.logout-btn:hover {
+    background: darkred;
+}
+
+.logout-btn i {
+    margin-right: 8px;
+} 

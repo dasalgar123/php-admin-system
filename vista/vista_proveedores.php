@@ -1,51 +1,12 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorProveedores.php';
 
-// Procesar acciones CRUD
-$mensaje = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
-    $nombre = trim($_POST['nombre'] ?? '');
-    $telefono = trim($_POST['telefono'] ?? '');
-    $correo = trim($_POST['correo'] ?? '');
-    $direccion = trim($_POST['direccion'] ?? '');
-    
-    if ($nombre && $telefono) {
-        if ($id > 0) {
-            $sql = "UPDATE proveedor SET nombre=?, telefono=?, correo=?, direccion=? WHERE id=?";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$nombre, $telefono, $correo, $direccion, $id]);
-            $mensaje = 'Proveedor actualizado correctamente.';
-        } else {
-            $sql = "INSERT INTO proveedor (nombre, telefono, correo, direccion, fecha_creacion) VALUES (?, ?, ?, ?, NOW())";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$nombre, $telefono, $correo, $direccion]);
-            $mensaje = 'Proveedor agregado correctamente.';
-        }
-    } else {
-        $mensaje = 'Nombre y teléfono son obligatorios.';
-    }
-}
-
-if (isset($_GET['eliminar'])) {
-    $id = intval($_GET['eliminar']);
-    if ($id > 0) {
-        $stmt = $pdo->prepare("DELETE FROM proveedor WHERE id=?");
-        $stmt->execute([$id]);
-        $mensaje = 'Proveedor eliminado correctamente.';
-    }
-}
-
-$stmt = $pdo->query("SELECT id, nombre, telefono, correo, direccion, fecha_creacion FROM proveedor ORDER BY id ASC");
-$proveedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$proveedor_editar = null;
-if (isset($_GET['editar'])) {
-    $id = intval($_GET['editar']);
-    $stmt = $pdo->prepare("SELECT id, nombre, telefono, correo, direccion FROM proveedor WHERE id=?");
-    $stmt->execute([$id]);
-    $proveedor_editar = $stmt->fetch(PDO::FETCH_ASSOC);
-}
+// Obtener datos usando el controlador
+$controladorProveedores = new ControladorProveedores($pdo);
+$mensaje = $controladorProveedores->procesarAcciones();
+$proveedores = $controladorProveedores->obtenerProveedores();
+$proveedor_editar = $controladorProveedores->obtenerProveedorParaEditar();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,14 +14,19 @@ if (isset($_GET['editar'])) {
     <meta charset="UTF-8">
     <title>Proveedores</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/clientes.css">
+    <link rel="stylesheet" href="../css/proveedores.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="main-content">
         <header class="content-header">
             <h1><i class="fas fa-truck"></i> Proveedores</h1>
+            <div class="header-actions">
+                <button type="button" class="btn btn-primary" onclick="mostrarFormularioUsuario()">
+                    <i class="fas fa-user-plus"></i> Agregar Usuario
+                </button>
+            </div>
         </header>
         <div class="content">
             <?php if ($mensaje): ?>
@@ -68,38 +34,7 @@ if (isset($_GET['editar'])) {
                     <i class="fas fa-info-circle"></i> <?php echo htmlspecialchars($mensaje); ?>
                 </div>
             <?php endif; ?>
-            <div class="card">
-                <h2><?php echo $proveedor_editar ? 'Editar Proveedor' : 'Agregar Proveedor'; ?></h2>
-                <form method="POST" class="user-form">
-                    <?php if ($proveedor_editar): ?>
-                        <input type="hidden" name="id" value="<?php echo $proveedor_editar['id']; ?>">
-                    <?php endif; ?>
-                    <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" required value="<?php echo htmlspecialchars($proveedor_editar['nombre'] ?? ''); ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono:</label>
-                        <input type="text" name="telefono" id="telefono" required value="<?php echo htmlspecialchars($proveedor_editar['telefono'] ?? ''); ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="correo">Correo:</label>
-                        <input type="email" name="correo" id="correo" value="<?php echo htmlspecialchars($proveedor_editar['correo'] ?? ''); ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección:</label>
-                        <textarea name="direccion" id="direccion" rows="3"><?php echo htmlspecialchars($proveedor_editar['direccion'] ?? ''); ?></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> <?php echo $proveedor_editar ? 'Actualizar' : 'Agregar'; ?>
-                        </button>
-                        <?php if ($proveedor_editar): ?>
-                        <a href="?page=proveedores" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
-                        <?php endif; ?>
-                    </div>
-                </form>
-            </div>
+            
             <div class="card">
                 <h2>Lista de Proveedores</h2>
                 <table class="clientes-table">
@@ -137,5 +72,50 @@ if (isset($_GET['editar'])) {
             </div>
         </div>
     </div>
+
+    <!-- Modal para Agregar Usuario -->
+    <div id="modalUsuario" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Agregar Nuevo Usuario</h2>
+                <span class="close" onclick="cerrarModalUsuario()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="formUsuario" method="POST" action="?page=users&action=add">
+                    <div class="form-group">
+                        <label for="nombre_usuario">Nombre:</label>
+                        <input type="text" name="nombre" id="nombre_usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_usuario">Email:</label>
+                        <input type="email" name="email" id="email_usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password_usuario">Contraseña:</label>
+                        <input type="password" name="password" id="password_usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rol_usuario">Rol:</label>
+                        <select name="rol" id="rol_usuario" required>
+                            <option value="">Seleccionar rol</option>
+                            <option value="admin">Administrador</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="vendedor">Vendedor</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Usuario
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="cerrarModalUsuario()">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/proveedores.js"></script>
 </body>
 </html> 

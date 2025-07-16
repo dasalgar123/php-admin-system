@@ -30,7 +30,7 @@ class DashboardController {
         }
 
         // Obtener página actual
-        $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+        $page = isset($_GET['page']) ? $_GET['page'] : 'inicio';
 
         // Datos simulados para estadísticas
         $stats = [
@@ -70,5 +70,5 @@ $dashboardController = new DashboardController($pdo);
 $data = $dashboardController->handleDashboard();
 
 // Incluir la vista
-include '../vista/vista_dashboard.php';
+include '../vista/vista_menu_principal.php';
 ?> 

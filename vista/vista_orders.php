@@ -1,13 +1,11 @@
 <?php
 // Conexión a la base de datos
 require_once '../config/database.php';
+require_once '../controlador/ControladorPedidos.php';
 
-// Consulta para obtener todos los pedidos
-$query = "SELECT * FROM pedidos ORDER BY fecha DESC";
-$stmt = $pdo->prepare($query);
-$stmt->execute();
-
-$pedidos = $stmt->fetchAll();
+// Obtener datos usando el controlador
+$controladorPedidos = new ControladorPedidos($pdo);
+$pedidos = $controladorPedidos->obtenerPedidos();
 ?>
 
 <div class="card">

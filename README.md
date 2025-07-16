@@ -85,7 +85,7 @@ php-admin/
 ├── vista/                            # 📱 Vistas (Presentación)
 │   ├── vista_login.php               # Vista de login
 │   ├── vista_dashboard.php           # Vista del dashboard
-│   ├── vista_users.php               # Vista de usuarios
+│   ├── vista_usuarios.php            # Vista de usuarios
 │   ├── vista_products.php            # Vista de productos
 │   ├── vista_orders.php              # Vista de pedidos
 │   ├── vista_analytics.php           # Vista de analíticas

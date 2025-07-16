@@ -1,6 +1,6 @@
 <?php
 ?>
-<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/menu_principal.css">
 <?php
 // Datos simulados para el panel principal
 $stats = [
@@ -75,7 +75,7 @@ $getStatusColor = function($status) {
 </div>
 
 <!-- Contenido del panel principal -->
-<div class="dashboard-content">
+<div class="menu-principal-content">
     <!-- Lista de pedidos recientes -->
     <div class="tarjeta">
         <div class="encabezado-tarjeta">

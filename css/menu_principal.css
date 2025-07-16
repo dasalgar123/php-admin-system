@@ -1,0 +1,40 @@
+/* Estilos para la página del menú principal */
+
+/* Layout del menú principal */
+.menu-principal-content {     display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+
+/* Grid de acciones rápidas */
+.action-grid {     display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+/* Tarjetas de acción */
+.action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    background: gris-muy-claro;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--dark-color);
+    transition: all 0.2s;
+}
+
+.action-card:hover {    
+    background: var(--primary-color); 
+    color: white; 
+    transform: translateY(-2px); 
+    z-index: 10;
+}
+.action-card i {  font-size: 32px; margin-bottom: 16px; color: var(--primary-color); }
+.action-card:hover i { color: white; }
+.action-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px;}
+.action-card p { font-size: 14px; opacity: 0.8;}
+
+/* Botones pequeños */
+.btn-sm { padding: 8px 12px; font-size: 14px;}
+
+/* Responsive */
+@media (max-width: 1024px) { 
+        .menu-principal-content {  grid-template-columns: 1fr;  }
+} 

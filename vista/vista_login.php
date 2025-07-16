@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <link rel="stylesheet" href="../css/login.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="login-page">
@@ -36,12 +35,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">
-                        <i class="fas fa-lock"></i>
-                        Contraseña
-                    </label>
-                    <input type="password" id="password" name="password" required 
-                           placeholder="Ingresa tu contraseña">
+                    <label for="password"> <i class="fas fa-lock"></i> Contraseña </label>
+                    <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
                 </div>
                 
                 <div class="form-group">

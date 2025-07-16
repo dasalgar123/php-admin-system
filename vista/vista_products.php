@@ -1,10 +1,11 @@
 <?php
 // Conexión a la base de datos usando PDO
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorProductos.php';
 
-// Consultar productos reales
-$stmt = $pdo->query('SELECT id, nombre, descripcion, precio, imagen, categoria_id, tallas_id, tipo_producto, color_id FROM productos ORDER BY id DESC');
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Obtener datos usando el controlador
+$controladorProductos = new ControladorProductos($pdo);
+$products = $controladorProductos->obtenerProductos();
 ?>
 
 <link rel="stylesheet" href="css/products.css">

@@ -1,11 +1,11 @@
 <?php
-// Conexión a la base de datos usando PDO (esto asegura que siempre tengamos acceso a los datos)
+// Conexión a la base de datos usando PDO
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorSalidas.php';
 
-// Consultar salidas desde productos_salidas, uniendo con productos para mostrar el nombre
-$stmt = $pdo->query('SELECT s.id, s.producto_id, p.nombre AS producto, s.venta_id, s.destinatario_tipo, s.destinatario_id, s.cantidad, s.fecha, s.motivo, s.cliente_id, s.factura_remision FROM productos_salidas s LEFT JOIN productos p ON s.producto_id = p.id ORDER BY s.fecha DESC');
-$salidas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Ahora $salidas es un arreglo con todas las filas de la consulta
+// Obtener datos usando el controlador
+$controladorSalidas = new ControladorSalidas($pdo);
+$salidas = $controladorSalidas->obtenerSalidas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +13,6 @@ $salidas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Salidas</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/vista_salidas.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>

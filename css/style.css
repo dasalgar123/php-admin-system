@@ -1,165 +1,53 @@
-/* Reset y variables CSS */
-* { margin: 0; padding: 0; box-sizing: border-box;}
-
-:root {
-    --primary-color: #2563eb;
-    --secondary-color: #64748b;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --danger-color: #ef4444;
-    --dark-color: #1f2937;
-    --light-color: #ffffff;
-    --border-color: #e5e7eb;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --barra-lateral-width: 200px;
-    
-    /* Variables para el tema claro */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --bg-tertiary: #f1f5f9;
-    --text-primary: #1f2937;
-    --text-secondary: #64748b;
+/* ========================================
+   RESET Y VARIABLES CSS
+   ======================================== */
+@import url('barra-lateral.css');
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
 }
 
+:root {
+    /* Colores principales */
+    --color-azul: blue;
+    --color-gris: gray;
+    --color-verde: green;
+    --color-amarillo: orange;
+    --color-rojo: red;
+    --color-oscuro: darkgray;
+    --color-blanco: white;
+    --color-borde: lightgray;
+    
+    /* Sombras */
+    --sombra: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    
+    /* Dimensiones */
+    --ancho-barra: 200px;
+    
+    /* Variables para el tema claro */
+    --fondo-principal: white;
+    --fondo-secundario: lightblue;
+    --fondo-terciario: lightgray;
+    --texto-principal: black;
+    --texto-secundario: gray;
+}
+
+/* ========================================
+   ESTILOS BASE
+   ======================================== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--light-color);
-    color: var(--dark-color);
+    background-color: var(--color-blanco);
+    color: var(--color-oscuro);
     line-height: 1.6;
 }
 
-/* Estilos para la barra lateral */
-.barra-lateral {
-    width: var(--barra-lateral-width);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #ffffff;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    overflow-y: auto;
-    box-shadow: 2px 0 20px rgba(0,0,0,0.1);
-}
+/
 
-.barra-lateral-header {
-    padding: 30px 20px;
-    text-align: center;
-    background: rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-
-.barra-lateral-header h2 {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.barra-lateral-header i {
-    color: #ffffff;
-    font-size: 24px;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.barra-lateral-nav {
-    padding: 20px 0;
-}
-
-.barra-lateral-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.barra-lateral-nav li {
-    margin: 2px 15px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.barra-lateral-nav a {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    color: rgba(255,255,255,0.8);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border-radius: 10px;
-    font-weight: 500;
-}
-
-.barra-lateral-nav a:hover {
-    background: rgba(255,255,255,0.2);
-    color: #ffffff;
-    transform: translateX(5px);
-}
-
-.barra-lateral-nav .active a {
-    background: rgba(255,255,255,0.3);
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.barra-lateral-nav i {
-    margin-right: 12px;
-    width: 20px;
-    font-size: 16px;
-    text-align: center;
-}
-
-.barra-lateral-nav span {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.barra-lateral-footer {
-    padding: 20px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    color: rgba(255,255,255,0.8);
-    font-size: 13px;
-}
-
-.user-info i {
-    margin-right: 10px;
-    font-size: 16px;
-}
-
-.logout-btn {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    background: rgba(220,53,69,0.8);
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.logout-btn:hover {
-    background: rgba(220,53,69,1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(220,53,69,0.4);
-}
-
-.logout-btn i {
-    margin-right: 8px;
-}
-
-/* Contenedor principal */
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
 .admin-container {
     display: flex;
     min-height: 100vh;
@@ -167,13 +55,14 @@ body {
 
 .main-content {
     flex: 1;
-    margin-left: var(--barra-lateral-width);
-    background: var(--bg-primary);
-    color: var(--text-primary);
+    margin-left: var(--ancho-barra);
+    background: var(--fondo-principal);
+    color: var(--texto-principal);
 }
 
-
-/* Responsive */
+/* ========================================
+   RESPONSIVE
+   ======================================== */
 @media (max-width: 768px) {
     /* Layout responsive moved to layout.css */
     /* Form responsive moved to forms.css */

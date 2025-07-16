@@ -1,21 +1,13 @@
 <?php
-// Conexión a la base de datos usando PDO (esto asegura que siempre tengamos acceso a los datos)
+// Conexión a la base de datos usando PDO
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorVentas.php';
 
-// Consultar ventas desde productos_ventas, uniendo con clientes si existe la tabla
-$clientes_exists = false;
-try {
-    $pdo->query('SELECT 1 FROM clientes LIMIT 1');
-    $clientes_exists = true;
-} catch (Exception $e) {}
-
-if ($clientes_exists) {
-    $stmt = $pdo->query('SELECT v.id, v.cliente_id, c.nombre AS cliente, v.fecha, v.factura FROM productos_ventas v LEFT JOIN clientes c ON v.cliente_id = c.id ORDER BY v.fecha DESC');
-} else {
-    $stmt = $pdo->query('SELECT v.id, v.cliente_id, v.fecha, v.factura FROM productos_ventas v ORDER BY v.fecha DESC');
-}
-$ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Ahora $ventas es un arreglo con todas las filas de la consulta
+// Obtener datos usando el controlador
+$controladorVentas = new ControladorVentas($pdo);
+$datos = $controladorVentas->obtenerVentas();
+$ventas = $datos['ventas'];
+$clientes_exists = $datos['clientes_exists'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,7 +15,6 @@ $ventas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Ventas</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/vista_ventas.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>

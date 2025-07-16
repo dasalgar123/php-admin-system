@@ -506,6 +506,8 @@ function getInventoryStats() {
  * Muestra notificaciones al usuario
  */
 function showNotification(message, type = 'info') {
+    // NOTIFICACIONES DESACTIVADAS - Comentado para evitar elementos flotantes molestos
+    /*
     // Crear elemento de notificación
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -552,6 +554,9 @@ function showNotification(message, type = 'info') {
             }
         }, 300);
     }, 3000);
+    */
+    // Función vacía para evitar errores
+    console.log('Notificación desactivada:', message);
 }
 
 /**

@@ -33,37 +33,14 @@ body {
     padding: 16px;
 }
 
-.login-container { 
-    width: 800px; 
-    max-width: 400px;
-}
+.login-container {  width: 800px;  max-width: 400px;}
+.login-card { background: white;  border-radius: 12px;  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);  padding: 32px; }
 
-.login-card { 
-    background: white; 
-    border-radius: 12px; 
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
-    padding: 32px;
-}
-
-.login-header { 
-    text-align: center; 
-    margin-bottom: 32px;
-}
-
-.login-header i { 
-    font-size: 48px; 
-    color: var(--primary-color); 
-    margin-bottom: 16px;
-}
-
-.login-header h1 { 
-    font-size: 24px; 
-    font-weight: 600; 
-    margin-bottom: 8px;
-}
-
-.login-header p { 
-    color: var(--secondary-color);
+.login-header { text-align: center; margin-bottom: 32px;}
+.login-header i {  font-size: 48px; color: var(--primary-color); margin-bottom: 16px;}
+.login-header i {  font-size: 48px; color: var(--primary-color);  margin-bottom: 16px;}
+.login-header h1 { font-size: 24px; font-weight: 600;  margin-bottom: 8px;}
+.login-header p {color: var(--secondary-color);
 }
 
 /* Alertas */
@@ -76,28 +53,12 @@ body {
     gap: 8px;
 }
 
-.alert-danger { 
-    background-color: rojo-claro; 
-    color: var(--danger-color); 
-    border: 1px solid rojo-claro-borde;
-}
+.alert-danger { background-color: rojo-claro; color: var(--danger-color);  border: 1px solid rojo-claro-borde;}
 
 /* Formulario */
-.form-group {
-    margin-bottom: 24px;
-}
-
-.form-group label { 
-    display: block; 
-    margin-bottom: 8px; 
-    font-weight: 500; 
-    color: var(--dark-color);
-}
-
-.form-group label i { 
-    margin-right: 8px; 
-    color: var(--primary-color);
-}
+.form-group { margin-bottom: 24px;}
+.form-group label {     display: block;  margin-bottom: 8px;  font-weight: 500;  color: var(--dark-color);}
+.form-group label i {  margin-right: 8px;  color: var(--primary-color);}
 
 .form-group input {
     width: 800px;
@@ -108,23 +69,9 @@ body {
     transition: border-color 0.2s;
 }
 
-.form-group input:focus { 
-    outline: none; 
-    border-color: var(--primary-color); 
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.checkbox-label { 
-    display: flex; 
-    align-items: center; 
-    cursor: pointer; 
-    font-size: 14px;
-}
-
-.checkbox-label input[type="checkbox"] { 
-    width: auto; 
-    margin-right: 8px;
-}
+.form-group input:focus {     outline: none;  border-color: var(--primary-color);  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);}
+.checkbox-label {     display: flex;  align-items: center;  cursor: pointer;  font-size: 14px;}
+.checkbox-label input[type="checkbox"] {     width: auto;  margin-right: 8px;}
 
 /* Botones */
 .btn {
@@ -141,39 +88,14 @@ body {
     text-decoration: none;
 }
 
-.btn-primary { 
-    background-color: var(--primary-color); 
-    color: white;
-}
+.btn-primary {  background-color: var(--primary-color);  color: white;}
+.btn-primary:hover {  background-color: azul-oscuro;  transform: translateY(-1px);}
+.btn-secondary {  background-color: var(--secondary-color);  color: white;}
+.btn-secondary:hover { background-color: gris-oscuro;}
 
-.btn-primary:hover { 
-    background-color: azul-oscuro; 
-    transform: translateY(-1px);
-}
-
-.btn-secondary { 
-    background-color: var(--secondary-color); 
-    color: white;
-}
-
-.btn-secondary:hover { 
-    background-color: gris-oscuro;
-}
-
-.btn-success { 
-    background-color: var(--success-color); 
-    color: white;
-}
-
-.btn-danger { 
-    background-color: var(--danger-color); 
-    color: white;
-}
-
-.btn-block { 
-    width: 1200px; 
-    justify-content: center;
-}
+.btn-success {  background-color: var(--success-color);  color: white;}
+.btn-danger {  background-color: var(--danger-color);  color: white;}
+.btn-block {  width: 1200px;  justify-content: center;}
 
 /* Footer del login */
 .login-footer {
@@ -187,16 +109,7 @@ body {
 
 /* Responsive para login */
 @media (max-width: 768px) {
-    .login-container { 
-        width: 1200px; 
-        max-width: 90%;
-    }
-    
-    .form-group input {
-        width: 1200px;
-    }
-    
-    .btn-block { 
-        width: 1200px;
-    }
+    .login-container {  width: 1200px;  max-width: 90%;}
+    .form-group input { width: 1200px;}
+    .btn-block {  width: 1200px;}
 } 

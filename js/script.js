@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Notificaciones
     function showNotification(message, type = 'info') {
+        // NOTIFICACIONES DESACTIVADAS - Comentado para evitar elementos flotantes molestos
+        /*
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -74,6 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
         notification.querySelector('.notification-close').addEventListener('click', () => {
             notification.remove();
         });
+        */
+        // Función vacía para evitar errores
+        console.log('Notificación desactivada:', message);
     }
     
     // Exponer función globalmente

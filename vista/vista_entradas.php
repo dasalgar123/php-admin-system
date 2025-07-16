@@ -1,11 +1,11 @@
 <?php
-// Conexión a la base de datos usando PDO (esto asegura que siempre tengamos acceso a los datos)
+// Conexión a la base de datos usando PDO
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorEntradas.php';
 
-// Consultar entradas desde productos_entradas, uniendo con productos para mostrar el nombre
-$stmt = $pdo->query('SELECT e.id, e.producto_id, p.nombre AS producto, e.cantidad, e.fecha, e.motivo, e.beneficiario_tipo, e.beneficiario_id, e.factura_remision, e.beneficiario FROM productos_entradas e LEFT JOIN productos p ON e.producto_id = p.id ORDER BY e.fecha DESC');
-$entradas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Ahora $entradas es un arreglo con todas las filas de la consulta
+// Obtener datos usando el controlador
+$controladorEntradas = new ControladorEntradas($pdo);
+$entradas = $controladorEntradas->obtenerEntradas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +13,6 @@ $entradas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Entradas</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/vista_entradas.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>

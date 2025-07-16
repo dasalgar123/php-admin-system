@@ -1,89 +1,31 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
-
-// Procesar acciones CRUD
-$mensaje = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Agregar o editar usuario
-    $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
-    $nombre = trim($_POST['nombre'] ?? '');
-    $correo = trim($_POST['correo'] ?? '');
-    $rol = trim($_POST['rol'] ?? 'usuario');
-    $password = $_POST['password'] ?? '';
-    
-    if ($nombre && $correo && $rol) {
-        if ($id > 0) {
-            // Editar usuario
-            if ($password) {
-                $hash = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "UPDATE usuario SET nombre=?, correo=?, contraseña=?, rol=? WHERE id=?";
-                $params = [$nombre, $correo, $hash, $rol, $id];
-            } else {
-                $sql = "UPDATE usuario SET nombre=?, correo=?, rol=? WHERE id=?";
-                $params = [$nombre, $correo, $rol, $id];
-            }
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute($params);
-            $mensaje = 'Usuario actualizado correctamente.';
-        } else {
-            // Agregar usuario
-            if ($password) {
-                $hash = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO usuario (nombre, correo, contraseña, rol) VALUES (?, ?, ?, ?)";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$nombre, $correo, $hash, $rol]);
-                $mensaje = 'Usuario agregado correctamente.';
-            } else {
-                $mensaje = 'La contraseña es obligatoria para nuevos usuarios.';
-            }
-        }
-    } else {
-        $mensaje = 'Todos los campos son obligatorios.';
-    }
-}
-
-// Eliminar usuario
-if (isset($_GET['eliminar'])) {
-    $id = intval($_GET['eliminar']);
-    if ($id > 0) {
-        $stmt = $pdo->prepare("DELETE FROM usuario WHERE id=?");
-        $stmt->execute([$id]);
-        $mensaje = 'Usuario eliminado correctamente.';
-    }
-}
-
-// Obtener usuarios
-$stmt = $pdo->query("SELECT id, nombre, correo, rol FROM usuario ORDER BY id ASC");
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Si se va a editar
-$usuario_editar = null;
-if (isset($_GET['editar'])) {
-    $id = intval($_GET['editar']);
-    $stmt = $pdo->prepare("SELECT id, nombre, correo, rol FROM usuario WHERE id=?");
-    $stmt->execute([$id]);
-    $usuario_editar = $stmt->fetch(PDO::FETCH_ASSOC);
-}
+// Incluir el controlador que maneja toda la lógica PHP
+require_once __DIR__ . '/../controlador/ControladorUsuarios.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Usuarios</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
-    <link rel="stylesheet" href="../css/usuarios.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Gestion Usuarios</title>
+    <!-- CSS removido -->
 </head>
 <body>
     <div class="usuario-main-content">
-          <div class="usuario-content">
+        <div class="usuario-header">
+            <h1><i class="fas fa-users"></i> Gestión de Usuarios</h1>
+            <button type="button" class="btn btn-primary" onclick="mostrarFormularioUsuario()">
+                <i class="fas fa-user-plus"></i> Agregar Usuario
+            </button>
+        </div>
+        
+        <div class="usuario-content">
             <?php if ($mensaje): ?>
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle"></i> <?php echo htmlspecialchars($mensaje); ?>
                 </div>
             <?php endif; ?>
-            <div class="usuario-card">
+            
+            <div class="usuario-card" id="formularioUsuario" style="display: <?php echo $usuario_editar ? 'block' : 'none'; ?>;">
                 <h2><?php echo $usuario_editar ? 'Editar Usuario' : 'Agregar Usuario'; ?></h2>
                 <form method="POST" class="usuario-form">
                     <?php if ($usuario_editar): ?>
@@ -118,6 +60,7 @@ if (isset($_GET['editar'])) {
                     </div>
                 </form>
             </div>
+            
             <div class="usuario-card">
                 <h2>Lista de Usuarios</h2>
                 <table class="users-table">
@@ -158,5 +101,9 @@ if (isset($_GET['editar'])) {
             </div>
         </div>
     </div>
+
+    <!-- CSS removido -->
+
+    <script src="../js/usuarios.js"></script>
 </body>
 </html> 

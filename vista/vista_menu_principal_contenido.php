@@ -1,19 +1,15 @@
 <?php
 // Conexión a la base de datos
 require_once '../config/database.php';
+require_once '../controlador/ControladorMenuPrincipal.php';
 
-// Consulta para obtener todos los pedidos
-$query = "SELECT * FROM pedidos ORDER BY fecha DESC";
-$stmt = $pdo->prepare($query);
-$stmt->execute();
-
-$pedidos = $stmt->fetchAll();
+// Obtener datos usando el controlador
+$controladorMenuPrincipal = new ControladorMenuPrincipal($pdo);
+$pedidos = $controladorMenuPrincipal->obtenerPedidos();
 ?>
 
-
-
-<!-- Contenido del Dashboard -->
-<div class="dashboard-content">
+    <!-- Contenido del Menú Principal -->
+    <div class="menu-principal-content">
     <!-- Tabla de Pedidos -->
                 <div class="tarjeta">
                 <div class="encabezado-tarjeta">
@@ -80,36 +76,7 @@ $pedidos = $stmt->fetchAll();
         </div>
     </div>
     
-    <!-- Acciones Rápidas -->
-                <div class="tarjeta">
-                <div class="encabezado-tarjeta">
-                    <h2 class="titulo-tarjeta">Acciones Rápidas</h2>
-        </div>
-        
-        <div class="quick-actions">
-            <div class="action-grid">
-                <a href="?page=users&action=add" class="action-card">
-                    <i class="fas fa-user-plus"></i>
-                    <h3>Agregar Usuario</h3>
-                    <p>Crear nuevo usuario en el sistema</p>
-                </a>
-                
-                <a href="?page=products&action=add" class="action-card">
-                    <i class="fas fa-plus"></i>
-                    <h3>Nuevo Producto</h3>
-                    <p>Agregar producto al catálogo</p>
-                </a>
-                
 
-                
-                <a href="?page=settings" class="action-card">
-                    <i class="fas fa-cog"></i>
-                    <h3>Configuración</h3>
-                    <p>Personalizar el sistema</p>
-                </a>
-            </div>
-        </div>
-    </div>
 </div>
 
-<link rel="stylesheet" href="../css/main-dashboard.css"> 
+<link rel="stylesheet" href="../css/menu_principal.css"> 

@@ -1,12 +1,7 @@
 /* Estilos específicos para la vista de ventas */
 
 /* Contenedor principal de la tabla */
-.ventas-container {
-    padding: 20px;
-    background: blanco;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+.ventas-container {padding: 20px; background: blanco; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
 
 /* Tabla de ventas */
 .ventas-table {
@@ -31,12 +26,7 @@
 }
 
 /* Celdas de datos */
-.ventas-table td {
-    padding: 10px 8px;
-    border-bottom: 1px solid gris-claro;
-    font-size: 14px;
-    color: gris-medio;
-}
+.ventas-table td { padding: 10px 8px; border-bottom: 1px solid gris-claro; font-size: 14px; color: gris-medio;}}
 
 /* Efecto hover en las filas */
 .ventas-table tbody tr:hover { background-color: gris-claro; transition: background-color 0.2s ease;}

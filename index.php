@@ -12,7 +12,7 @@ if (!$auth->isLoggedIn()) {
 }
 
 // Si está autenticado, redirigir al panel de administración
-header('Location: controlador/DashboardController.php');
+header('Location: controlador/ControladorMenuPrincipalPrincipal.php');
 exit;
 
 // Procesar formulario de inicio de sesión
@@ -49,5 +49,5 @@ if (!$auth->isLoggedIn()) {
 }
 
 // Si el usuario está autenticado, mostrar panel de administración
-include 'controlador/DashboardController.php';
+include 'controlador/ControladorMenuPrincipalPrincipal.php';
 ?> 

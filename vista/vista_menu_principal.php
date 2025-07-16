@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Panel de Administración</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/forms.css">
-    <link rel="stylesheet" href="../css/tables.css">
-    <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="../css/barra-lateral.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -22,21 +19,18 @@
             
             <nav class="barra-lateral-nav">
                 <ul>
-                    <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
-                    <li class="<?php echo $data['page'] === 'dashboard' ? 'active' : ''; ?>">
-                        <a href="?page=dashboard">
+                    <li class="<?php echo $data['page'] === 'inicio' ? 'active' : ''; ?>">
+                        <a href="?page=inicio">
                             <i class="fas fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
+                            <span>Menú Principal</span>
                         </a>
                     </li>
-                    <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
                     <li class="<?php echo $data['page'] === 'users' ? 'active' : ''; ?>">
                         <a href="?page=users">
                             <i class="fas fa-users"></i>
                             <span>Usuarios</span>
                         </a>
                     </li>
-                    <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
                     <li class="<?php echo $data['page'] === 'clientes' ? 'active' : ''; ?>">
                         <a href="?page=clientes">
                             <i class="fas fa-user-friends"></i>
@@ -49,7 +43,6 @@
                             <span>Proveedores</span>
                         </a>
                     </li>
-                    <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
                     <li class="<?php echo $data['page'] === 'products' ? 'active' : ''; ?>">
                         <a href="?page=products">
                             <i class="fas fa-box"></i>
@@ -62,6 +55,12 @@
                             <span>Pedidos</span>
                         </a>
                     </li>
+                    <li class="<?php echo $data['page'] === 'inventario' ? 'active' : ''; ?>">
+                        <a href="?page=inventario">
+                            <i class="fas fa-warehouse"></i>
+                            <span>Inventario</span>
+                        </a>
+                    </li>
                     <li class="<?php echo $data['page'] === 'entradas' ? 'active' : ''; ?>">
                         <a href="?page=entradas">
                             <i class="fas fa-arrow-down"></i>
@@ -72,12 +71,6 @@
                         <a href="?page=salidas">
                             <i class="fas fa-arrow-up"></i>
                             <span>Salidas</span>
-                        </a>
-                    </li>
-                    <li class="<?php echo $data['page'] === 'inventario' ? 'active' : ''; ?>">
-                        <a href="?page=inventario">
-                            <i class="fas fa-warehouse"></i>
-                            <span>Inventario</span>
                         </a>
                     </li>
                     <li class="<?php echo $data['page'] === 'ventas' ? 'active' : ''; ?>">
@@ -104,16 +97,6 @@
                             <span>Traslados</span>
                         </a>
                     </li>
-                    <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
-
-
-                    <li><hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;"></li>
-                    <li class="<?php echo $data['page'] === 'settings' ? 'active' : ''; ?>">
-                        <a href="?page=settings">
-                            <i class="fas fa-cog"></i>
-                            <span>Configuración</span>
-                        </a>
-                    </li>
                 </ul>
             </nav>
             <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
@@ -135,7 +118,7 @@
                 <h1>
                     <?php
                     switch($data['page']) {
-                        case 'dashboard': echo 'Dashboard'; break;
+                        case 'inicio': echo 'Menú Principal'; break;
                         case 'users': echo 'Usuarios'; break;
                         case 'clientes': echo 'Gestión de Clientes'; break;
                         case 'proveedores': echo 'Gestión de Proveedores'; break;
@@ -149,7 +132,7 @@
                         case 'devoluciones': echo 'Gestión de Devoluciones'; break;
                         case 'garantias': echo 'Gestión de Garantías'; break;
                         case 'traslados': echo 'Gestión de Traslados'; break;
-                        default: echo 'Dashboard';
+                        default: echo 'Menú Principal';
                     }
                     ?>
                 </h1>
@@ -160,11 +143,11 @@
             <div class="content">
                 <?php
                 switch($data['page']) {
-                    case 'dashboard':
-                        include '../vista/vista_main-dashboard.php';
+                    case 'inicio':
+                        include '../vista/vista_menu_principal_contenido.php';
                         break;
                     case 'users':
-                        include '../vista/vista_users.php';
+                        include '../vista/vista_usuarios.php';
                         break;
                     case 'clientes':
                         include '../vista/vista_clientes.php';
@@ -207,7 +190,7 @@
                         include '../vista/vista_settings.php';
                         break;
                     default:
-                        include '../menu/menu_dashboard-content.php';
+                        include '../menu/menu_menu_principal.php';
                 }
                 ?>
             </div>

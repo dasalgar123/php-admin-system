@@ -1,11 +1,11 @@
 <?php
-// Conexión a la base de datos usando PDO (esto asegura que siempre tengamos acceso a los datos)
+// Conexión a la base de datos usando PDO
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorDevoluciones.php';
 
-// Consultar devoluciones desde productos_devoluciones, uniendo con productos para mostrar el nombre
-$stmt = $pdo->query('SELECT d.id, d.tipo, d.entidad_id, d.fecha, d.motivo, d.factura_remision, d.producto_id, p.nombre AS producto FROM productos_devoluciones d LEFT JOIN productos p ON d.producto_id = p.id ORDER BY d.fecha DESC');
-$devoluciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Ahora $devoluciones es un arreglo con todas las filas de la consulta
+// Obtener datos usando el controlador
+$controladorDevoluciones = new ControladorDevoluciones($pdo);
+$devoluciones = $controladorDevoluciones->obtenerDevoluciones();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +13,6 @@ $devoluciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Devoluciones</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/vista_devoluciones.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>

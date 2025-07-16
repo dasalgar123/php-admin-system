@@ -1,117 +1,16 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorInventario.php';
 
-$error_inventario = null;
+// Obtener datos usando el controlador
+$controladorInventario = new ControladorInventario($pdo);
+$datos = $controladorInventario->obtenerDatosInventario();
 
-try {
-    // Verificar si existe la tabla bodegas
-    $bodegas_exists = false;
-    try {
-        $pdo->query('SELECT 1 FROM bodegas LIMIT 1');
-        $bodegas_exists = true;
-    } catch (Exception $e) {}
-
-    // Obtener filtros
-    $filtro_bodega = isset($_GET['bodega']) ? (int)$_GET['bodega'] : '';
-    $filtro_producto = isset($_GET['producto']) ? $_GET['producto'] : '';
-    $filtro_stock = isset($_GET['stock']) ? $_GET['stock'] : '';
-
-    // Construir la consulta usando inventario_bodega
-    if ($bodegas_exists) {
-        // Consulta simple usando solo inventario_bodega (sin subconsultas problemáticas)
-        $sql = "SELECT 
-            p.id AS producto_id,
-            p.nombre AS producto_nombre,
-            p.descripcion,
-            p.precio,
-            b.id AS bodega_id,
-            b.nombre AS bodega_nombre,
-            COALESCE(ib.stock_actual, 0) AS stock_actual,
-            0 AS total_entradas,
-            0 AS total_salidas,
-            0 AS total_devoluciones,
-            0 AS total_garantias,
-            0 AS total_traslados_entrada,
-            0 AS total_traslados_salida
-        FROM productos p
-        CROSS JOIN bodegas b
-        LEFT JOIN inventario_bodega ib ON p.id = ib.producto_id AND b.id = ib.bodega_id";
-        
-        // Aplicar filtros
-        $where_conditions = [];
-        $params = [];
-        
-        if ($filtro_bodega) {
-            $where_conditions[] = "b.id = ?";
-            $params[] = $filtro_bodega;
-        }
-        
-        if ($filtro_producto) {
-            $where_conditions[] = "p.nombre LIKE ?";
-            $params[] = "%$filtro_producto%";
-        }
-        
-        if ($where_conditions) {
-            $sql .= " WHERE " . implode(" AND ", $where_conditions);
-        }
-        
-        $sql .= " ORDER BY b.nombre, p.nombre";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
-        $inventario = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Obtener lista de bodegas para el filtro
-        $stmt_bodegas = $pdo->query("SELECT id, nombre FROM bodegas ORDER BY nombre");
-        $bodegas = $stmt_bodegas->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        // Consulta simple sin bodegas usando tabla inventario
-        $sql = "SELECT 
-            p.id AS producto_id,
-            p.nombre AS producto_nombre,
-            p.descripcion,
-            p.precio,
-            COALESCE(i.stock_actual, 0) AS stock_actual,
-            0 AS total_entradas,
-            0 AS total_salidas
-        FROM productos p
-        LEFT JOIN inventario i ON p.id = i.producto_id";
-        
-        // Aplicar filtros
-        $where_conditions = [];
-        $params = [];
-        
-        if ($filtro_producto) {
-            $where_conditions[] = "p.nombre LIKE ?";
-            $params[] = "%$filtro_producto%";
-        }
-        
-        if ($where_conditions) {
-            $sql .= " WHERE " . implode(" AND ", $where_conditions);
-        }
-        
-        $sql .= " ORDER BY p.nombre";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
-        $inventario = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-} catch (PDOException $e) {
-    $error_inventario = "No se pudo mostrar el inventario por un error de configuración. Contacta al administrador. <br><small>" . htmlspecialchars($e->getMessage()) . "</small>";
-    $inventario = [];
-}
-
-// Función para obtener el color del stock
-function getStockColor($stock) {
-    if ($stock <= 0) return 'stock-agotado';
-    if ($stock <= 10) return 'stock-bajo';
-    return 'stock-disponible';
-}
-
-// Función para formatear precio
-function formatPrice($price) {
-    return '$' . number_format($price, 2);
-}
+$inventario = $datos['inventario'];
+$bodegas = $datos['bodegas'];
+$bodegas_exists = $datos['bodegas_exists'];
+$error_inventario = $datos['error_inventario'];
+$filtros = $datos['filtros'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -120,7 +19,6 @@ function formatPrice($price) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario - Sistema de Administración</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/inventario.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Librerías para exportación -->
@@ -168,7 +66,7 @@ function formatPrice($price) {
                             <option value="">Todas las bodegas</option>
                             <?php foreach ($bodegas as $bodega): ?>
                             <option value="<?php echo $bodega['id']; ?>" 
-                                    <?php echo $filtro_bodega == $bodega['id'] ? 'selected' : ''; ?>>
+                                    <?php echo $filtros['bodega'] == $bodega['id'] ? 'selected' : ''; ?>>
                                 <?php echo htmlspecialchars($bodega['nombre']); ?>
                             </option>
                             <?php endforeach; ?>
@@ -179,7 +77,7 @@ function formatPrice($price) {
                     <div class="filter-group">
                         <label for="producto">Producto:</label>
                         <input type="text" name="producto" id="producto" 
-                               value="<?php echo htmlspecialchars($filtro_producto); ?>" 
+                               value="<?php echo htmlspecialchars($filtros['producto']); ?>" 
                                placeholder="Buscar producto...">
                     </div>
                     
@@ -187,9 +85,9 @@ function formatPrice($price) {
                         <label for="stock">Estado del Stock:</label>
                         <select name="stock" id="stock">
                             <option value="">Todos</option>
-                            <option value="disponible" <?php echo $filtro_stock === 'disponible' ? 'selected' : ''; ?>>Disponible (>10)</option>
-                            <option value="bajo" <?php echo $filtro_stock === 'bajo' ? 'selected' : ''; ?>>Stock Bajo (1-10)</option>
-                            <option value="agotado" <?php echo $filtro_stock === 'agotado' ? 'selected' : ''; ?>>Agotado (0)</option>
+                            <option value="disponible" <?php echo $filtros['stock'] === 'disponible' ? 'selected' : ''; ?>>Disponible (>10)</option>
+                            <option value="bajo" <?php echo $filtros['stock'] === 'bajo' ? 'selected' : ''; ?>>Stock Bajo (1-10)</option>
+                            <option value="agotado" <?php echo $filtros['stock'] === 'agotado' ? 'selected' : ''; ?>>Agotado (0)</option>
                         </select>
                     </div>
                     
@@ -280,7 +178,7 @@ function formatPrice($price) {
                             </tr>
                             <?php else: ?>
                                 <?php foreach ($inventario as $item): ?>
-                                <tr class="<?php echo getStockColor($item['stock_actual']); ?>">
+                                <tr class="<?php echo ControladorInventario::getStockColor($item['stock_actual']); ?>">
                                     <td class="product-id"><?php echo htmlspecialchars($item['producto_id']); ?></td>
                                     <td class="product-name">
                                         <div class="product-info">
@@ -293,9 +191,9 @@ function formatPrice($price) {
                                     <?php if ($bodegas_exists): ?>
                                     <td class="bodega-name"><?php echo htmlspecialchars($item['bodega_nombre']); ?></td>
                                     <?php endif; ?>
-                                    <td class="price"><?php echo formatPrice($item['precio']); ?></td>
+                                    <td class="price"><?php echo ControladorInventario::formatPrice($item['precio']); ?></td>
                                     <td class="stock-actual">
-                                        <span class="stock-number <?php echo getStockColor($item['stock_actual']); ?>">
+                                        <span class="stock-number <?php echo ControladorInventario::getStockColor($item['stock_actual']); ?>">
                                             <?php echo htmlspecialchars($item['stock_actual']); ?>
                                         </span>
                                     </td>

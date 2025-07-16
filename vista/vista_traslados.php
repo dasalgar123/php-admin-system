@@ -1,21 +1,13 @@
 <?php
-// Conexión a la base de datos usando PDO (esto asegura que siempre tengamos acceso a los datos)
+// Conexión a la base de datos usando PDO
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../controlador/ControladorTraslados.php';
 
-// Consultar traslados desde productos_traslados, uniendo con bodegas si existen
-$bodegas_exists = false;
-try {
-    $pdo->query('SELECT 1 FROM bodegas LIMIT 1');
-    $bodegas_exists = true;
-} catch (Exception $e) {}
-
-if ($bodegas_exists) {
-    $stmt = $pdo->query('SELECT t.id, t.bodega_origen_id, bo.nombre AS bodega_origen, t.bodega_destino_id, bd.nombre AS bodega_destino, t.fecha, t.motivo FROM productos_traslados t LEFT JOIN bodegas bo ON t.bodega_origen_id = bo.id LEFT JOIN bodegas bd ON t.bodega_destino_id = bd.id ORDER BY t.fecha DESC');
-} else {
-    $stmt = $pdo->query('SELECT t.id, t.bodega_origen_id, t.bodega_destino_id, t.fecha, t.motivo FROM productos_traslados t ORDER BY t.fecha DESC');
-}
-$traslados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Ahora $traslados es un arreglo con todas las filas de la consulta
+// Obtener datos usando el controlador
+$controladorTraslados = new ControladorTraslados($pdo);
+$datos = $controladorTraslados->obtenerTraslados();
+$traslados = $datos['traslados'];
+$bodegas_exists = $datos['bodegas_exists'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,7 +15,6 @@ $traslados = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Traslados</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
     <link rel="stylesheet" href="../css/vista_traslados.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>

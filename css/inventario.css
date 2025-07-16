@@ -208,29 +208,6 @@
 .btn-secondary { background: gris-secundario; color: blanco;}
 .btn-secondary:hover { background: gris-oscuro; transform: translateY(-1px);}
 
-/* Notificaciones */
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: blanco;
-    font-weight: 500;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transform: translateX(1200px);
-    transition: transform 0.3s ease;
-    max-width: 400px;
-}
-
-.notification-success { background: linear-gradient(135deg, verde-exito, verde-claro);}
-.notification-error {background: linear-gradient(135deg, rojo-peligro, rosa-secundario); }
-.notification-info { background: linear-gradient(135deg, azul-cian, morado-secundario); }
-.notification i {  font-size: 18px; }
 
 /* Botones de exportación mejorados */
 .header-actions .btn { background: rgba(255, 255, 255, 0.2);   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -259,7 +236,7 @@
     .summary-cards { grid-template-columns: 1fr;}
     .header-actions { width: 1200px; justify-content: center;}
     .card-header { flex-direction: column; gap: 10px; align-items: flex-start; }
-    .notification { right: 10px; left: 10px; max-width: none;}
+    /* .notification { right: 10px; left: 10px; max-width: none;} - DESACTIVADO */
 }
 
 /* Modo oscuro */
