@@ -1,280 +1,131 @@
 /* Estilos para la página de clientes */
 
 /* Información del cliente en la tabla */
-.client-info {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.client-avatar {
+.informacion-cliente { display: flex; align-items: center; gap: 12px;}
+.avatar-cliente {
     width: 40px;
     height: 40px;
     background-color: var(--primary-color);
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 14px;
 }
 
-.client-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.client-name {
-    font-weight: 500;
-    color: var(--dark-color);
-}
-
-.client-id {
-    font-size: 0.75rem;
-    color: var(--secondary-color);
-}
+.detalles-cliente { display: flex; flex-direction: column; gap: 4px;}
+.nombre-cliente { font-weight: 500; color: var(--dark-color);}
+.id-cliente { font-size: 12px; color: var(--secondary-color);}
 
 /* Información de contacto */
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.contact-email {
-    font-size: 0.875rem;
-    color: var(--dark-color);
-}
+.informacion-contacto { display: flex; flex-direction: column; gap: 4px;}
+.email-contacto { font-size: 14px; color: var(--dark-color);}
 
 /* Estados del cliente */
-.client-status {
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
+.estado-cliente {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
     font-weight: 500;
     text-transform: uppercase;
 }
 
-.status-active {
-    background-color: #d1fae5;
-    color: #065f46;
-}
-
-.status-inactive {
-    background-color: #fee2e2;
-    color: #991b1b;
-}
-
-.status-pending {
-    background-color: #fef3c7;
-    color: #92400e;
-}
+.estado-activo { background-color: verde-claro; color: verde-oscuro;}
+.estado-inactivo { background-color: rojo-claro; color: rojo-oscuro;}
+.estado-pendiente { background-color: amarillo-claro; color: amarillo-oscuro;}
 
 /* Botones de acción */
-.action-buttons {
-    display: flex;
-    gap: 0.25rem;
-}
-
-.action-btn {
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.75rem !important;
-    min-width: auto !important;
-}
+.botones-accion { display: flex; gap: 4px;}
+.boton-accion { padding: 4px 8px ; font-size: 12px; min-width: auto ;}
 
 /* Estilos para el formulario */
-.form-group {
-    margin-bottom: 1rem;
+.grupo-formulario {     margin-bottom: 16px; }
+.grupo-formulario label { display: block; margin-bottom: 8px; font-weight: 500;}
+
+.control-formulario {
+    width: 800px;
+    padding: 8px;
+    border: 1px solid gris-claro;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.form-control {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 0.25rem;
-    font-size: 1rem;
-}
-
-.form-actions {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 0.5rem;
-}
+.acciones-formulario { margin-top: 24px; display: flex; gap: 8px;}
 
 /* Estilos para las alertas */
-.alert {
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-}
-
-.alert-danger {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-}
-
-.alert-success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-}
-
-.alert i {
-    margin-right: 0.5rem;
-}
+.alerta { padding: 12px 16px; margin-bottom: 16px; border: 1px solid transparent; border-radius: 4px;}
+.alerta-peligro { color: rojo-oscuro; background-color: rojo-claro; border-color: rojo-borde;}
+.alerta-exito { color: verde-oscuro; background-color: verde-claro; border-color: verde-borde;}
+.alerta i { margin-right: 8px;}
 
 /* Estilos adicionales */
-.date-info {
-    font-size: 0.875rem;
-    color: var(--secondary-color);
-}
-
-.text-center {
-    text-align: center;
-}
-
-.location-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.btn-warning {
-    background-color: #f59e0b;
-    color: white;
-    border: none;
-}
-
-.btn-warning:hover {
-    background-color: #d97706;
-}
+.informacion-fecha { font-size: 14px; color: var(--secondary-color);}
+.texto-centro { text-align: center;}
+.informacion-ubicacion { display: flex; flex-direction: column; gap: 0.25rem;}
+.btn-warning { background-color: naranja-advertencia; color: blanco; border: none;}
+.btn-warning:hover { background-color: naranja-oscuro;}
 
 /* Estilos adicionales para la página de clientes */
-.date-info {
-    font-size: 0.875rem;
-    color: var(--secondary-color);
-}
+.informacion-fecha { font-size: 14px; color: var(--secondary-color);}
 
-.text-center {
-    text-align: center;
-}
-
-.location-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
+.texto-centro { text-align: center;}
+.informacion-ubicacion { display: flex; flex-direction: column; gap: 4px;}
 
 /* Footer de la tabla */
-.table-footer {
+.pie-tabla {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1rem;
+    padding-top: 16px;
     border-top: 1px solid var(--border-color);
 }
 
-.table-info {
-    font-size: 0.875rem;
-    color: var(--secondary-color);
-}
+.informacion-tabla { font-size: 14px; color: var(--secondary-color);}
 
 /* Filtros de búsqueda */
-.filters {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex: 1;
-}
-
-.search-box {
-    position: relative;
-    flex: 1;
-    max-width: 300px;
-}
-
-.search-icon {
+.filtros { display: flex; gap: 16px; align-items: center; flex: 1;}
+.caja-busqueda { position: relative; flex: 1; max-width: 300px;}
+.icono-busqueda {
     position: absolute;
-    left: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 12px;
+    top: 20px;
+    transform: translateY(-10px);
     color: var(--secondary-color);
     z-index: 1;
 }
 
-.search-input {
-    width: 100%;
-    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+.entrada-busqueda {
+    width: 800px;
+    padding: 8px 12px 8px 40px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    font-size: 0.875rem;
+    font-size: 14px;
 }
 
-.search-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
-}
+.entrada-busqueda:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);}
 
-.filter-select {
-    padding: 0.5rem 0.75rem;
+.seleccion-filtro {
+    padding: 8px 12px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    font-size: 0.875rem;
-    background-color: white;
+    font-size: 14px;
+    background-color: blanco;
     min-width: 150px;
 }
 
-.filter-select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
+.seleccion-filtro:focus { outline: none; border-color: var(--primary-color);}
 
 /* Formulario de cliente */
-.client-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
+.formulario-cliente { max-width: 600px; margin: 0 auto;}
+.fila-formulario { display: grid; grid-template-columns: 1fr 1fr; gap: 16px;}
 
 /* Responsive */
 @media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .search-box {
-        max-width: 100%;
-    }
-    
-    .action-buttons {
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-    
-    .table-footer {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
+    .filtros { flex-direction: column; gap: 8px;}
+    .caja-busqueda { max-width: 1200px;}
+    .botones-accion { flex-direction: column; gap: 4px;}
+    .pie-tabla { flex-direction: column; gap: 8px; text-align: center;}
+    .fila-formulario { grid-template-columns: 1fr;}
 } 

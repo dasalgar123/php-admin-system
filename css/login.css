@@ -1,0 +1,202 @@
+/* Estilos específicos para la página de login */
+
+/* Variables CSS para login */
+:root {
+    --primary-color: azul-principal;
+    --secondary-color: gris-secundario;
+    --success-color: verde-exito;
+    --warning-color: naranja-advertencia;
+    --danger-color: rojo-peligro;
+    --dark-color: negro-oscuro;
+    --light-color: blanco-claro;
+    --border-color: gris-borde;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset básico */
+* { margin: 0; padding: 0; box-sizing: border-box;}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+/* Login Page */
+.login-page {
+    background: linear-gradient(135deg, var(--primary-color) 0px, azul-oscuro 1000px);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.login-container { 
+    width: 800px; 
+    max-width: 400px;
+}
+
+.login-card { 
+    background: white; 
+    border-radius: 12px; 
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
+    padding: 32px;
+}
+
+.login-header { 
+    text-align: center; 
+    margin-bottom: 32px;
+}
+
+.login-header i { 
+    font-size: 48px; 
+    color: var(--primary-color); 
+    margin-bottom: 16px;
+}
+
+.login-header h1 { 
+    font-size: 24px; 
+    font-weight: 600; 
+    margin-bottom: 8px;
+}
+
+.login-header p { 
+    color: var(--secondary-color);
+}
+
+/* Alertas */
+.alert {
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alert-danger { 
+    background-color: rojo-claro; 
+    color: var(--danger-color); 
+    border: 1px solid rojo-claro-borde;
+}
+
+/* Formulario */
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 500; 
+    color: var(--dark-color);
+}
+
+.form-group label i { 
+    margin-right: 8px; 
+    color: var(--primary-color);
+}
+
+.form-group input {
+    width: 800px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus { 
+    outline: none; 
+    border-color: var(--primary-color); 
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.checkbox-label { 
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
+    font-size: 14px;
+}
+
+.checkbox-label input[type="checkbox"] { 
+    width: auto; 
+    margin-right: 8px;
+}
+
+/* Botones */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-primary { 
+    background-color: var(--primary-color); 
+    color: white;
+}
+
+.btn-primary:hover { 
+    background-color: azul-oscuro; 
+    transform: translateY(-1px);
+}
+
+.btn-secondary { 
+    background-color: var(--secondary-color); 
+    color: white;
+}
+
+.btn-secondary:hover { 
+    background-color: gris-oscuro;
+}
+
+.btn-success { 
+    background-color: var(--success-color); 
+    color: white;
+}
+
+.btn-danger { 
+    background-color: var(--danger-color); 
+    color: white;
+}
+
+.btn-block { 
+    width: 1200px; 
+    justify-content: center;
+}
+
+/* Footer del login */
+.login-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+/* Responsive para login */
+@media (max-width: 768px) {
+    .login-container { 
+        width: 1200px; 
+        max-width: 90%;
+    }
+    
+    .form-group input {
+        width: 1200px;
+    }
+    
+    .btn-block { 
+        width: 1200px;
+    }
+} 

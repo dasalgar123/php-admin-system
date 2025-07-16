@@ -29,10 +29,7 @@ $traslados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <div class="main-content">
-        <header class="content-header">
-            <h1><i class="fas fa-exchange-alt"></i> Traslados</h1>
-        </header>
-        <div class="content">
+           <div class="content">
             <div class="card">
                 <h2>Listado de Traslados</h2>
                 <!--

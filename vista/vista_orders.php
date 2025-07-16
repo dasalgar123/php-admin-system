@@ -1,43 +1,13 @@
 <?php
-// Datos simulados de pedidos
-$orders = [
-    [
-        'id' => '#1234',
-        'customer' => 'Juan Pérez',
-        'products' => 3,
-        'total' => 150.00,
-        'status' => 'Completado',
-        'date' => '2024-01-15',
-        'payment' => 'Tarjeta'
-    ],
-    [
-        'id' => '#1235',
-        'customer' => 'María García',
-        'products' => 2,
-        'total' => 200.00,
-        'status' => 'Pendiente',
-        'date' => '2024-01-14',
-        'payment' => 'Efectivo'
-    ],
-    [
-        'id' => '#1236',
-        'customer' => 'Carlos López',
-        'products' => 1,
-        'total' => 75.00,
-        'status' => 'En proceso',
-        'date' => '2024-01-13',
-        'payment' => 'Transferencia'
-    ]
-];
+// Conexión a la base de datos
+require_once '../config/database.php';
 
-$getStatusColor = function($status) {
-    switch ($status) {
-        case 'Completado': return 'success';
-        case 'Pendiente': return 'warning';
-        case 'En proceso': return 'primary';
-        default: return 'secondary';
-    }
-};
+// Consulta para obtener todos los pedidos
+$query = "SELECT * FROM pedidos ORDER BY fecha DESC";
+$stmt = $pdo->prepare($query);
+$stmt->execute();
+
+$pedidos = $stmt->fetchAll();
 ?>
 
 <div class="card">
@@ -60,44 +30,55 @@ $getStatusColor = function($status) {
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID Pedido</th>
-                    <th>Cliente</th>
+                    <th>ID</th>
+                    <th>Nombre Cliente</th>
+                    <th>Teléfono</th>
                     <th>Productos</th>
                     <th>Total</th>
-                    <th>Estado</th>
                     <th>Fecha</th>
-                    <th>Pago</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($orders as $order): ?>
-                <tr>
-                    <td><?php echo $order['id']; ?></td>
-                    <td><?php echo htmlspecialchars($order['customer']); ?></td>
-                    <td><?php echo $order['products']; ?> items</td>
-                    <td>$<?php echo number_format($order['total'], 2); ?></td>
-                    <td>
-                        <span class="status-badge <?php echo $getStatusColor($order['status']); ?>">
-                            <?php echo $order['status']; ?>
-                        </span>
-                    </td>
-                    <td><?php echo $order['date']; ?></td>
-                    <td><?php echo $order['payment']; ?></td>
-                    <td>
-                        <div class="action-buttons">
-                            <a href="?page=orders&action=view&id=<?php echo $order['id']; ?>" 
-                               class="btn btn-secondary btn-sm">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="?page=orders&action=edit&id=<?php echo $order['id']; ?>" 
-                               class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+                <?php if (!empty($pedidos)): ?>
+                    <?php foreach ($pedidos as $pedido): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($pedido['id']); ?></td>
+                        <td><?php echo htmlspecialchars($pedido['nombre_cliente']); ?></td>
+                        <td><?php echo htmlspecialchars($pedido['telefono']); ?></td>
+                        <td>
+                            <div class="product-info">
+                                <?php 
+                                $productos = htmlspecialchars($pedido['productos']);
+                                if (strlen($productos) > 50) {
+                                    echo substr($productos, 0, 50) . '...';
+                                } else {
+                                    echo $productos;
+                                }
+                                ?>
+                            </div>
+                        </td>
+                        <td>$<?php echo number_format($pedido['total'], 2); ?></td>
+                        <td><?php echo date('d/m/Y H:i', strtotime($pedido['fecha'])); ?></td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="?page=orders&action=view&id=<?php echo $pedido['id']; ?>" 
+                                   class="btn btn-secondary btn-sm" data-tooltip="Ver detalles">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="?page=orders&action=edit&id=<?php echo $pedido['id']; ?>" 
+                                   class="btn btn-primary btn-sm" data-tooltip="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" class="text-center">No hay pedidos registrados</td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

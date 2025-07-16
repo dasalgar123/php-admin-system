@@ -28,48 +28,48 @@ $getStatusColor = function($status) {
 ?>
 
 <!-- Panel de estadísticas -->
-<div class="stats-grid">
-    <div class="stat-card">
-        <div class="stat-icon users">
+<div class="cuadricula-estadisticas">
+    <div class="tarjeta-estadistica">
+        <div class="icono-estadistica usuarios">
             <i class="fas fa-users"></i>
         </div>
-        <div class="stat-content">
+        <div class="contenido-estadistica">
             <h3>Total Usuarios</h3>
-            <div class="stat-value"><?php echo number_format($stats['users']); ?></div>
-            <div class="stat-change">+12% desde el mes pasado</div>
+            <div class="valor-estadistica"><?php echo number_format($stats['users']); ?></div>
+            <div class="cambio-estadistica">+12% desde el mes pasado</div>
         </div>
     </div>
     
-    <div class="stat-card">
-        <div class="stat-icon products">
+    <div class="tarjeta-estadistica">
+        <div class="icono-estadistica productos">
             <i class="fas fa-box"></i>
         </div>
-        <div class="stat-content">
+        <div class="contenido-estadistica">
             <h3>Productos</h3>
-            <div class="stat-value"><?php echo number_format($stats['products']); ?></div>
-            <div class="stat-change">+8% desde el mes pasado</div>
+            <div class="valor-estadistica"><?php echo number_format($stats['products']); ?></div>
+            <div class="cambio-estadistica">+8% desde el mes pasado</div>
         </div>
     </div>
     
-    <div class="stat-card">
-        <div class="stat-icon orders">
+    <div class="tarjeta-estadistica">
+        <div class="icono-estadistica pedidos">
             <i class="fas fa-shopping-cart"></i>
         </div>
-        <div class="stat-content">
+        <div class="contenido-estadistica">
             <h3>Pedidos</h3>
-            <div class="stat-value"><?php echo number_format($stats['orders']); ?></div>
-            <div class="stat-change">-3% desde el mes pasado</div>
+            <div class="valor-estadistica"><?php echo number_format($stats['orders']); ?></div>
+            <div class="cambio-estadistica">-3% desde el mes pasado</div>
         </div>
     </div>
     
-    <div class="stat-card">
-        <div class="stat-icon revenue">
+    <div class="tarjeta-estadistica">
+        <div class="icono-estadistica ingresos">
             <i class="fas fa-dollar-sign"></i>
         </div>
-        <div class="stat-content">
+        <div class="contenido-estadistica">
             <h3>Ingresos</h3>
-            <div class="stat-value">$<?php echo number_format($stats['revenue']); ?></div>
-            <div class="stat-change">+15% desde el mes pasado</div>
+            <div class="valor-estadistica">$<?php echo number_format($stats['revenue']); ?></div>
+            <div class="cambio-estadistica">+15% desde el mes pasado</div>
         </div>
     </div>
 </div>
@@ -77,9 +77,9 @@ $getStatusColor = function($status) {
 <!-- Contenido del panel principal -->
 <div class="dashboard-content">
     <!-- Lista de pedidos recientes -->
-    <div class="card">
-        <div class="card-header">
-            <h2 class="card-title">Pedidos Recientes</h2>
+    <div class="tarjeta">
+        <div class="encabezado-tarjeta">
+            <h2 class="titulo-tarjeta">Pedidos Recientes</h2>
             <a href="?page=ordenes" class="btn btn-primary">
                 <i class="fas fa-eye"></i>
                 Ver todos
@@ -122,9 +122,9 @@ $getStatusColor = function($status) {
     </div>
     
     <!-- Panel de acciones rápidas -->
-    <div class="card">
-        <div class="card-header">
-            <h2 class="card-title">Acciones Rápidas</h2>
+    <div class="tarjeta">
+        <div class="encabezado-tarjeta">
+            <h2 class="titulo-tarjeta">Acciones Rápidas</h2>
         </div>
         
         <div class="quick-actions">
@@ -141,11 +141,7 @@ $getStatusColor = function($status) {
                     <p>Agregar producto al catálogo</p>
                 </a>
                 
-                <a href="?page=analytics" class="action-card">
-                    <i class="fas fa-chart-bar"></i>
-                    <h3>Ver Reportes</h3>
-                    <p>Analizar métricas del sistema</p>
-                </a>
+
                 
                 <a href="?page=settings" class="action-card">
                     <i class="fas fa-cog"></i>

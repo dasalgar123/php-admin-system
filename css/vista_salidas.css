@@ -3,17 +3,17 @@
 /* Contenedor principal de la tabla */
 .salidas-container {
     padding: 20px;
-    background: #fff;
+    background: blanco;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Tabla de salidas */
 .salidas-table {
-    width: 100%;
+    width: 1200px;
     border-collapse: collapse;
     margin-top: 20px;
-    background: #fff;
+    background: blanco;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -21,144 +21,80 @@
 
 /* Encabezados de la tabla */
 .salidas-table th {
-    background: #f8f9fa;
-    color: #333;
+    background: gris-muy-claro;
+    color: gris-oscuro;
     font-weight: 600;
     padding: 12px 8px;
     text-align: left;
-    border-bottom: 2px solid #dee2e6;
+    border-bottom: 2px solid gris-borde;
     font-size: 14px;
 }
 
 /* Celdas de datos */
 .salidas-table td {
     padding: 10px 8px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid gris-claro;
     font-size: 14px;
-    color: #555;
+    color: gris-medio;
 }
 
 /* Efecto hover en las filas */
-.salidas-table tbody tr:hover {
-    background-color: #f8f9fa;
-    transition: background-color 0.2s ease;
-}
+.salidas-table tbody tr:hover { background-color: gris-muy-claro; transition: background-color 0.2s ease;}
 
 /* Primera columna (ID) */
 .salidas-table th:first-child,
-.salidas-table td:first-child {
-    width: 60px;
-    text-align: center;
-    font-weight: bold;
-}
+.salidas-table td:first-child { width: 60px; text-align: center; font-weight: bold;}
 
 /* Columna de cantidad */
 .salidas-table th:nth-child(3),
-.salidas-table td:nth-child(3) {
-    text-align: center;
-    font-weight: bold;
-    color: #dc3545; /* Rojo para salidas */
-}
+.salidas-table td:nth-child(3) { text-align: center; font-weight: bold; color: rojo-peligro; }
 
 /* Columna de fecha */
 .salidas-table th:nth-child(4),
-.salidas-table td:nth-child(4) {
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-}
+.salidas-table td:nth-child(4) { font-family: 'Courier New', monospace; font-size: 13px;}
 
 /* Columna de motivo */
 .salidas-table th:nth-child(5),
-.salidas-table td:nth-child(5) {
-    text-transform: capitalize;
-}
+.salidas-table td:nth-child(5) { text-transform: capitalize;}
 
 /* Columna de beneficiario */
 .salidas-table th:nth-child(6),
-.salidas-table td:nth-child(6) {
-    font-weight: 500;
-    color: #fd7e14; /* Naranja para diferenciar de entradas */
-}
+.salidas-table td:nth-child(6) { font-weight: 500; color: naranja-secundario; }
 
 /* Columna de tipo */
 .salidas-table th:nth-child(7),
-.salidas-table td:nth-child(7) {
-    text-transform: capitalize;
-    color: #6c757d;
-}
+.salidas-table td:nth-child(7) { text-transform: capitalize; color: gris-secundario;}
 
 /* Columna de ID beneficiario */
 .salidas-table th:nth-child(8),
-.salidas-table td:nth-child(8) {
-    text-align: center;
-    font-family: 'Courier New', monospace;
-    color: #6c757d;
-}
+.salidas-table td:nth-child(8) { text-align: center; font-family: 'Courier New', monospace; color: gris-secundario;}
 
 /* Columna de factura */
 .salidas-table th:nth-child(9),
-.salidas-table td:nth-child(9) {
-    font-family: 'Courier New', monospace;
-    font-weight: 500;
-    color: #6f42c1; /* Púrpura para diferenciar de entradas */
-}
+.salidas-table td:nth-child(9) { font-family: 'Courier New', monospace; font-weight: 500; color: morado-secundario; }
 
 /* Mensaje cuando no hay datos */
 .salidas-table tbody tr td[colspan] {
     text-align: center;
     padding: 40px;
-    color: #6c757d;
-    font-style: italic;
-}
+    color: gris-secundario;
+    font-style: italic;}
 
 /* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
-    .salidas-container {
-        padding: 10px;
-    }
-    
-    .salidas-table {
-        font-size: 12px;
-    }
-    
+    .salidas-container { padding: 10px;}
+    .salidas-table { font-size: 12px;}
     .salidas-table th,
-    .salidas-table td {
-        padding: 8px 4px;
-    }
+    .salidas-table td { padding: 8px 4px;}
     
     /* Ocultar columnas menos importantes en móvil */
     .salidas-table th:nth-child(8),
-    .salidas-table td:nth-child(8) {
-        display: none;
-    }
-}
+    .salidas-table td:nth-child(8) { display: none;}}
 
 /* Estilos para modo oscuro */
-.dark-mode .salidas-container {
-    background: #2d3748;
-    color: #e2e8f0;
-}
-
-.dark-mode .salidas-table {
-    background: #2d3748;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.dark-mode .salidas-table th {
-    background: #4a5568;
-    color: #e2e8f0;
-    border-bottom-color: #718096;
-}
-
-.dark-mode .salidas-table td {
-    color: #cbd5e0;
-    border-bottom-color: #4a5568;
-}
-
-.dark-mode .salidas-table tbody tr:hover {
-    background-color: #4a5568;
-}
-
-.dark-mode .salidas-table tbody tr td[colspan] {
-    color: #a0aec0;
-} 
+.dark-mode .salidas-container { background: gris-oscuro-fondo; color: blanco-claro;}
+.dark-mode .salidas-table { background: gris-oscuro-fondo; box-shadow: 0 2px 8px rgba(0,0,0,0.3);}
+.dark-mode .salidas-table th { background: gris-medio-oscuro; color: blanco-claro; border-bottom-color: gris-borde-oscuro;}
+.dark-mode .salidas-table td { color: gris-claro-texto; border-bottom-color: gris-medio-oscuro;}
+.dark-mode .salidas-table tbody tr:hover { background-color: gris-medio-oscuro;}
+.dark-mode .salidas-table tbody tr td[colspan] { color: gris-claro;} 

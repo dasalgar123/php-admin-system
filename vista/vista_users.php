@@ -72,23 +72,20 @@ if (isset($_GET['editar'])) {
     <title>Usuarios</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dark-mode.css">
-    <link rel="stylesheet" href="../css/users.css">
+    <link rel="stylesheet" href="../css/usuarios.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="main-content">
-        <header class="content-header">
-            <h1><i class="fas fa-users"></i> Usuarios</h1>
-        </header>
-        <div class="content">
+    <div class="usuario-main-content">
+          <div class="usuario-content">
             <?php if ($mensaje): ?>
-                <div class="alert alert-info" style="margin:20px;">
+                <div class="alert alert-info">
                     <i class="fas fa-info-circle"></i> <?php echo htmlspecialchars($mensaje); ?>
                 </div>
             <?php endif; ?>
-            <div class="card">
+            <div class="usuario-card">
                 <h2><?php echo $usuario_editar ? 'Editar Usuario' : 'Agregar Usuario'; ?></h2>
-                <form method="POST" class="user-form">
+                <form method="POST" class="usuario-form">
                     <?php if ($usuario_editar): ?>
                         <input type="hidden" name="id" value="<?php echo $usuario_editar['id']; ?>">
                     <?php endif; ?>
@@ -121,7 +118,7 @@ if (isset($_GET['editar'])) {
                     </div>
                 </form>
             </div>
-            <div class="card">
+            <div class="usuario-card">
                 <h2>Lista de Usuarios</h2>
                 <table class="users-table">
                     <thead>
@@ -154,7 +151,7 @@ if (isset($_GET['editar'])) {
                         </tr>
                         <?php endforeach; ?>
                         <?php if (empty($usuarios)): ?>
-                        <tr><td colspan="5" style="text-align:center;">No hay usuarios registrados.</td></tr>
+                        <tr><td colspan="5">No hay usuarios registrados.</td></tr>
                         <?php endif; ?>
                     </tbody>
                 </table>

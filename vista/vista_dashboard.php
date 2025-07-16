@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dark-mode.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/tables.css">
+    <link rel="stylesheet" href="../css/cards.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="admin-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
+        <!-- Barra Lateral -->
+        <aside class="barra-lateral">
+            <div class="barra-lateral-header">
                 <i class="fas fa-cogs"></i>
                 <h2>Admin Panel</h2>
             </div>
             
-            <nav class="sidebar-nav">
+            <nav class="barra-lateral-nav">
                 <ul>
                     <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
                     <li class="<?php echo $data['page'] === 'dashboard' ? 'active' : ''; ?>">
@@ -102,19 +105,8 @@
                         </a>
                     </li>
                     <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
-                    <li class="<?php echo $data['page'] === 'whatsapp-orders' ? 'active' : ''; ?>">
-                        <a href="?page=whatsapp-orders">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>WhatsApp Orders</span>
-                        </a>
-                    </li>
-                    <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
-                    <li class="<?php echo $data['page'] === 'analytics' ? 'active' : ''; ?>">
-                        <a href="?page=analytics">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Analíticas</span>
-                        </a>
-                    </li>
+
+
                     <li><hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;"></li>
                     <li class="<?php echo $data['page'] === 'settings' ? 'active' : ''; ?>">
                         <a href="?page=settings">
@@ -125,7 +117,7 @@
                 </ul>
             </nav>
             <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
-            <div class="sidebar-footer">
+            <div class="barra-lateral-footer">
                 <div class="user-info">
                     <i class="fas fa-user-circle"></i>
                     <span><?php echo $data['currentUser'] ? htmlspecialchars($data['currentUser']['nombre']) : ''; ?></span>
@@ -144,13 +136,13 @@
                     <?php
                     switch($data['page']) {
                         case 'dashboard': echo 'Dashboard'; break;
-                        case 'users': echo 'Gestión de Usuarios'; break;
+                        case 'users': echo 'Usuarios'; break;
                         case 'clientes': echo 'Gestión de Clientes'; break;
                         case 'proveedores': echo 'Gestión de Proveedores'; break;
                         case 'products': echo 'Gestión de Productos'; break;
                         case 'orders': echo 'Gestión de Pedidos'; break;
-                        case 'analytics': echo 'Analíticas'; break;
-                        case 'whatsapp-orders': echo 'WhatsApp Orders'; break;
+                
+
                         case 'settings': echo 'Configuración'; break;
                         case 'inventario': echo 'Inventario'; break;
                         case 'ventas': echo 'Gestión de Ventas'; break;
@@ -161,12 +153,7 @@
                     }
                     ?>
                 </h1>
-                <div class="header-actions">
-                    <button class="btn btn-secondary">
-                        <i class="fas fa-bell"></i>
-                        Notificaciones
-                    </button>
-                </div>
+
             </header>
 
             <!-- Page Content -->
@@ -191,9 +178,7 @@
                     case 'orders':
                         include '../vista/vista_orders.php';
                         break;
-                    case 'analytics':
-                        include '../vista/vista_analytics.php';
-                        break;
+                    
                     
                     
                     case 'entradas':
@@ -217,9 +202,7 @@
                     case 'traslados':
                         include '../vista/vista_traslados.php';
                         break;
-                    case 'whatsapp-orders':
-                            include '../vista/vista_whatsapp-orders.php';
-                        break;
+
                     case 'settings':
                         include '../vista/vista_settings.php';
                         break;
@@ -232,6 +215,6 @@
     </div>
 
     <script src="../js/script.js"></script>
-    <script src="../js/dark-mode.js"></script>
+
 </body>
 </html> 

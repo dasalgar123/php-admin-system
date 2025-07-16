@@ -19,10 +19,7 @@ $garantias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <div class="main-content">
-        <header class="content-header">
-            <h1><i class="fas fa-shield-alt"></i> Garantías</h1>
-        </header>
-        <div class="content">
+           <div class="content">
             <div class="card">
                 <h2>Listado de Garantías</h2>
                 <!--
